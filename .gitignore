@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets (clés API) : ne jamais versionner
+.env
+
+# Fichiers générés par le serveur
+serveur/logs/
+serveur/uploaded_docs/

@@ -1,0 +1,37 @@
+#web framework 
+fastapi 
+uvicorn[standard]
+python-multipart # for file upload
+
+# LangChain & Ecosystem
+langchain
+langchain-community 
+langchain-core 
+langchain-groq 
+
+# Vectorstore 
+pinecone 
+
+# Embeddings
+# sentence-transformers
+# langchain-google-generative-ai 
+langchain-google-genai 
+
+# PDF Parsing
+PyPDF  # backend for PyPDFLoader via langchain_community
+
+# Environment Variables
+python-dotenv
+
+# Typing & Utilities
+pydantic
+requests
+tqdm
+
+# Logging (optional but recommended)
+loguru
+
+# Pour installer les dépendances pour le serveur, vous pouvez utiliser la commande suivante dans votre terminal :
+# Vu qu'on utilise uv, on spécifiera donc: uv pip install -r requirements.txt
+
+
