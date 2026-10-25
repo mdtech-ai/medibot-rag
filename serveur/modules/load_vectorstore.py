@@ -8,6 +8,8 @@ from pinecone import Pinecone, ServerlessSpec
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from modules.pdf_handlers import save_uploaded_files
+from logger import logger
 
 
 load_dotenv()
@@ -18,10 +20,6 @@ PINECONE_ENV = "us-east-1" # Région de Pinecone (AWS par défaut: version gratu
 PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME") # Nom de l'index Pinecone pour stocker les vecteurs (défini dans .env)
 
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY  # Modèle d'Embedding Google Generative AI nécessite la clé d'API Google pour fonctionner correctement.
-
-# Nous allons créer un répertoire pour stocker les fichiers PDF téléchargés par les utilisateurs. Ce répertoire sera utilisé pour sauvegarder temporairement les documents avant de les traiter et d'extraire le texte pour l'analyse.
-UPLOAD_DIR = "./uploaded_docs"  # Répertoire pour stocker les fichiers PDF téléchargés
-os.makedirs(UPLOAD_DIR, exist_ok=True)  # Crée le répertoire s'il n'existe pas déjà
 
 # Initialisation de Pinecone avec la clé d'API 
 pc = Pinecone(api_key=PINECONE_API_KEY) 
@@ -51,14 +49,8 @@ def load_vectorstore(uploaded_files):
         output_dimensionality=768,  # Doit correspondre à la dimension de l'index Pinecone
     )
     
-    # Liste pour stocker les chemins des fichiers PDF téléchargés
-    file_paths = [] 
-    # 2. upload des fichiers PDF dans le répertoire UPLOAD_DIR
-    for file in uploaded_files:
-        save_path = Path(UPLOAD_DIR) / file.filename
-        with open(save_path, "wb") as f:
-            f.write(file.file.read())
-        file_paths.append(str(save_path))
+    # 2. Sauvegarde des fichiers PDF téléchargés sur le disque (voir modules/pdf_handlers.py)
+    file_paths = save_uploaded_files(uploaded_files)
 
     # 3. Chargement et traitement des fichiers PDF
     for file_path in tqdm(file_paths, desc="Processing PDF files"):
@@ -80,12 +72,12 @@ def load_vectorstore(uploaded_files):
         ids = [f"{Path(file_path).stem}-{i}" for i in range(len(chunks))]  # Génération d'IDs uniques pour chaque chunk
 
         # 4. Transformation des textes en vecteurs d'embedding 
-        print(f"{chunks} Embedding chunks")
+        logger.info(f"Embedding de {len(chunks)} chunks pour {Path(file_path).name}")
         embedding = embed_model.embed_documents(texts)  # Transformation des textes en vecteurs d'embedding
 
 
         # 5. Préparation des vecteurs pour l'upsert dans Pinecone
-        print("Upserting embeddings...")
+        logger.info("Upsert des embeddings dans Pinecone...")
         vectors = list(zip(ids, embedding, metadata))  # Liste de tuples (id, vecteur, métadonnées) attendue par Pinecone
         batch_size = 100  # Envoi par lots : Pinecone limite la taille de chaque requête (2 Mo)
         with tqdm(total=len(vectors), desc="Upserting to Pinecone") as progress :
@@ -94,5 +86,5 @@ def load_vectorstore(uploaded_files):
                 index.upsert(vectors=batch)  # Upsert du lot de vecteurs dans Pinecone
                 progress.update(len(batch))  # Mise à jour de la barre de progression
 
-        print(f"Upload complete for {file_path}") 
+        logger.info(f"Indexation terminée pour {Path(file_path).name}")
 

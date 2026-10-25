@@ -1,17 +1,17 @@
-import os 
-import shutil 
+import shutil
+from pathlib import Path
 from fastapi import UploadFile
-import tempfile  # tempfile pour sauvegarder temporairement les fichiers PDF téléchargés dans un espace de stockage temporaire avant de les traiter.
 
-UPLOAD_DIR = "./uploaded_docs"  # Répertoire pour stocker les fichiers PDF téléchargés
+# Répertoire pour stocker les fichiers PDF téléchargés : serveur/uploaded_docs (indépendant du dossier depuis lequel le serveur est lancé)
+UPLOAD_DIR = Path(__file__).resolve().parent.parent / "uploaded_docs"
 
-def save_uploaded_files(files:list(UploadFile)) -> list[str]:
-    os.makedirs(UPLOAD_DIR, exist_ok=True)  # Crée le répertoire s'il n'existe pas déjà
+def save_uploaded_files(files: list[UploadFile]) -> list[str]:
+    UPLOAD_DIR.mkdir(exist_ok=True)  # Crée le répertoire s'il n'existe pas déjà
     file_paths = []  # Liste pour stocker les chemins des fichiers PDF téléchargés
     for file in files:
-            temp_path = os.path.join(UPLOAD_DIR, file.filename)  # Chemin complet pour sauvegarder le fichier
-            with open(temp_path, "wb") as f:
-                shutil.copyfileobj(file.file, f)  # Copie le contenu du fichier téléchargé dans le fichier temporaire
-            file_paths.append(temp_path)  # Ajoute le chemin du fichier sauvegardé à la liste
-    
+        save_path = UPLOAD_DIR / Path(file.filename).name  # .name : ignore un éventuel chemin dans le nom envoyé par le client
+        with open(save_path, "wb") as f:
+            shutil.copyfileobj(file.file, f)  # Copie le contenu du fichier téléchargé par blocs (sans tout charger en mémoire)
+        file_paths.append(str(save_path))  # Ajoute le chemin du fichier sauvegardé à la liste
+
     return file_paths  # Retourne la liste des chemins des fichiers PDF sauvegardés
