@@ -40,15 +40,19 @@ if PINECONE_INDEX_NAME not in existing_indexes:
 
 index = pc.Index(PINECONE_INDEX_NAME)  # Création d'une instance de l'index Pinecone pour interagir avec les vecteurs stockés
 
+# Modèle d'embedding Google Generative AI pour transformer le texte en vecteurs numériques.
+# Créé une seule fois au démarrage et partagé par l'indexation (ce module) et la recherche (modules/retriever.py) :
+# les documents et les questions doivent impérativement être vectorisés avec le même modèle et la même dimension.
+embed_model = GoogleGenerativeAIEmbeddings(
+    model="models/gemini-embedding-001",  # Modèle d'embedding multilingue de Google (prend en charge le français)
+    output_dimensionality=768,  # Doit correspondre à la dimension de l'index Pinecone
+)
+
 # Fonction pour charger un fichier PDF, extraire le contenu, le diviser en morceaux, le vectoriser (embed) et l'indexer (upsert) dans Pinecone
 
-def load_vectorstore(uploaded_files): 
-    # 1. Initialisation du modèle d'embedding Google Generative AI pour transformer le texte en vecteurs numériques
-    embed_model = GoogleGenerativeAIEmbeddings(
-        model="models/gemini-embedding-001",  # Modèle d'embedding multilingue de Google (prend en charge le français)
-        output_dimensionality=768,  # Doit correspondre à la dimension de l'index Pinecone
-    )
-    
+def load_vectorstore(uploaded_files):
+    # 1. Le modèle d'embedding (embed_model) est défini au niveau du module, ci-dessus
+
     # 2. Sauvegarde des fichiers PDF téléchargés sur le disque (voir modules/pdf_handlers.py)
     file_paths = save_uploaded_files(uploaded_files)
 
