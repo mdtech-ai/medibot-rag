@@ -1,7 +1,7 @@
 [project]
-name = "medicalaiassistant-rag"
+name = "medibot-rag"
 version = "0.1.0"
-description = "Add your description here"
+description = "Assistant médical RAG en français : FastAPI, LangChain, Pinecone, Gemini embeddings, Groq"
 readme = "README.md"
 authors = [
     { name = "Mamadou DIALLO", email = "mamadoudiallode1@gmail.com" }
@@ -9,9 +9,5 @@ authors = [
 requires-python = ">=3.12"
 dependencies = []
 
-[project.scripts]
-medicalaiassistant-rag = "medicalaiassistant_rag:main"
-
-[build-system]
-requires = ["uv_build>=0.13.1,<0.14.0"]
-build-backend = "uv_build"
+[tool.uv]
+package = false  # Application (pas une bibliothèque) : uv installe les dépendances sans construire de paquet

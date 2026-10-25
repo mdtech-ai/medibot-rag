@@ -15,3 +15,6 @@ wheels/
 # Fichiers générés par le serveur
 serveur/logs/
 serveur/uploaded_docs/
+
+# Configuration locale de Claude Code (préférences personnelles)
+.claude/settings.local.json
