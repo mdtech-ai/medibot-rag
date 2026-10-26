@@ -1,5 +1,11 @@
 # Schémas Pydantic : format des données échangées avec l'API (validation des entrées et documentation automatique dans /docs)
+from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
+
+
+class ChatMessage(BaseModel):
+    role: Literal["user", "assistant"] = Field(..., description="Auteur du message : l'utilisateur ou MediBot")
+    content: str = Field(..., max_length=8000, description="Contenu du message")
 
 
 class AskRequest(BaseModel):
@@ -12,6 +18,11 @@ class AskRequest(BaseModel):
         description="Question posée à MediBot",
         examples=["Combien existe-t-il de types de diabète ?"],
     )
+    history: list[ChatMessage] = Field(
+        default_factory=list,
+        max_length=50,
+        description="Messages précédents de la conversation, du plus ancien au plus récent (seuls les derniers sont utilisés)",
+    )
 
 
 class Source(BaseModel):
@@ -23,4 +34,5 @@ class Source(BaseModel):
 
 class AskResponse(BaseModel):
     response: str = Field(..., description="Réponse générée par MediBot à partir des documents")
+    standalone_question: str = Field(..., description="Question autonome réellement utilisée pour la recherche (reformulée si un historique est fourni)")
     sources: list[Source] = Field(default_factory=list, description="Passages utilisés, sans doublons (un par fichier et par page)")

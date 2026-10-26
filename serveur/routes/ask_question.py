@@ -19,7 +19,8 @@ chain = get_llm_chain(retriever)
 async def ask_question(request: AskRequest):
     try:
         logger.info(f"Requête de l'utilisateur : {request.question}")
-        result = await query_chain(chain, request.question)
+        history = [message.model_dump() for message in request.history]
+        result = await query_chain(chain, request.question, history)
 
         logger.info("Requête traitée avec succès")
         return result
@@ -38,7 +39,7 @@ async def ask_question_stream(request: AskRequest):
     """
     logger.info(f"Requête de l'utilisateur (streaming) : {request.question}")
     return StreamingResponse(
-        stream_chain(chain, request.question),
+        stream_chain(chain, request.question, [message.model_dump() for message in request.history]),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",  # Le navigateur ou un proxy ne doit pas mettre le flux en cache

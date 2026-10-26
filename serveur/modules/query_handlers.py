@@ -44,13 +44,14 @@ def format_sources(docs) -> list[dict]:
     return sources
 
 
-async def query_chain(chain, user_input:str):
+async def query_chain(chain, question: str, history: list[dict] | None = None):
     try:
-        logger.debug(f"Exécution de la chaîne pour la requête utilisateur : {user_input}")
+        logger.debug(f"Exécution de la chaîne pour la requête utilisateur : {question} (historique : {len(history or [])} messages)")
         # ainvoke (version asynchrone de invoke) : le serveur reste disponible pour les autres requêtes pendant l'appel au LLM
-        result = await chain.ainvoke(user_input)
+        result = await chain.ainvoke({"question": question, "history": history or []})
         response = {
             "response": result["answer"],
+            "standalone_question": result["standalone_question"],
             "sources": format_sources(result["source_documents"]),
         }
         logger.debug(f"Résultat de la chaîne : {response}")
@@ -65,7 +66,7 @@ def sse_event(event: str, data) -> str:
     return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
 
-async def stream_chain(chain, user_input: str):
+async def stream_chain(chain, question: str, history: list[dict] | None = None):
     """
     Exécute la chaîne en streaming et produit des événements SSE :
     - "sources" : les citations, dès que la recherche dans Pinecone est terminée (avant la génération)
@@ -74,11 +75,13 @@ async def stream_chain(chain, user_input: str):
     - "error"   : en cas d'erreur (le code HTTP 200 est déjà parti, l'erreur est donc signalée dans le flux)
     """
     try:
-        logger.debug(f"Exécution de la chaîne en streaming pour la requête utilisateur : {user_input}")
-        # astream renvoie la sortie de la chaîne par morceaux : d'abord {"source_documents": [...]} et {"question": ...},
-        # puis {"answer": "..."} pour chaque token, grâce au StrOutputParser qui transmet le texte au fil de l'eau
-        async for chunk in chain.astream(user_input):
-            if "source_documents" in chunk:
+        logger.debug(f"Exécution de la chaîne en streaming pour la requête utilisateur : {question} (historique : {len(history or [])} messages)")
+        # astream renvoie la sortie de la chaîne par morceaux : d'abord les clés intermédiaires (question, standalone_question,
+        # source_documents...), puis {"answer": "..."} pour chaque token, grâce au StrOutputParser qui transmet le texte au fil de l'eau
+        sources_sent = False
+        async for chunk in chain.astream({"question": question, "history": history or []}):
+            if "source_documents" in chunk and not sources_sent:
+                sources_sent = True
                 yield sse_event("sources", format_sources(chunk["source_documents"]))
             if chunk.get("answer"):
                 yield sse_event("token", {"text": chunk["answer"]})
