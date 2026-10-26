@@ -70,9 +70,18 @@ def load_vectorstore(uploaded_files):
         chunks = text_splitter.split_documents(documents)
 
         texts = [chunk.page_content for chunk in chunks]  # Extraction du contenu textuel des chunks
-        # Extraction des métadonnées associées aux chunks, en y ajoutant le texte du chunk sous la clé "text"
-        # (Pinecone ne stocke que les vecteurs : sans cette clé, la route /ask/ ne pourrait pas retrouver le contenu)
-        metadata = [{**chunk.metadata, "text": chunk.page_content} for chunk in chunks]
+        # Métadonnées stockées avec chaque vecteur : uniquement ce qui sert aux citations, plus le texte du chunk sous la clé "text"
+        # (Pinecone ne stocke que les vecteurs : sans cette clé, la route /ask/ ne pourrait pas retrouver le contenu).
+        # On écarte les métadonnées du PDF (auteur, logiciel, dates...) : inutiles, et elles alourdissent chaque vecteur.
+        metadata = [
+            {
+                "source": Path(file_path).name,  # Nom du fichier seul : ne révèle pas l'arborescence du serveur
+                "page": chunk.metadata.get("page", 0),  # Numéro de page (commence à 0)
+                "page_label": str(chunk.metadata.get("page_label", "")),  # Numéro affiché dans le PDF
+                "text": chunk.page_content,
+            }
+            for chunk in chunks
+        ]
         ids = [f"{Path(file_path).stem}-{i}" for i in range(len(chunks))]  # Génération d'IDs uniques pour chaque chunk
 
         # 4. Transformation des textes en vecteurs d'embedding 

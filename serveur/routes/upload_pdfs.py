@@ -7,15 +7,13 @@ from logger import logger
 router = APIRouter() # Initialisation du routeur FastAPI pour gérer les routes liées au téléchargement de fichiers PDF
 
 @router.post("/upload_pdfs")
-async def upload_pdfs(files: List[UploadFile] = File(...)):
+# def (et non async def) : l'indexation est bloquante (lecture des PDF, embeddings, upsert).
+# FastAPI exécute alors la route dans un thread séparé, et le serveur continue de répondre aux autres requêtes.
+def upload_pdfs(files: List[UploadFile] = File(...)):
     """
     Endpoint pour le téléchargement de fichiers PDF.
     Cette route permet aux utilisateurs de soumettre des documents PDF à l'application pour traitement.
     Le fichier sera reçu via une requête POST, et le serveur pourra ensuite extraire le texte du PDF pour l'analyse.
-    
-
-    args: 
-    files
     """
 
     try:

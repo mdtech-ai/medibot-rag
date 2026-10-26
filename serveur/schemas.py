@@ -14,6 +14,13 @@ class AskRequest(BaseModel):
     )
 
 
+class Source(BaseModel):
+    file: str = Field(..., description="Nom du fichier PDF", examples=["DIABETES.pdf"])
+    page: int | None = Field(None, description="Numéro de page (commence à 1)", examples=[2])
+    excerpt: str = Field(..., description="Début du passage utilisé pour répondre")
+    score: float | None = Field(None, description="Score de similarité cosinus entre la question et le passage (0 à 1)")
+
+
 class AskResponse(BaseModel):
     response: str = Field(..., description="Réponse générée par MediBot à partir des documents")
-    sources: list[str] = Field(default_factory=list, description="Fichiers d'où proviennent les passages utilisés")
+    sources: list[Source] = Field(default_factory=list, description="Passages utilisés, sans doublons (un par fichier et par page)")
