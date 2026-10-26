@@ -1,8 +1,8 @@
 # Les bibliothèques nécessaires
 from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from modules.llm import get_llm_chain
-from modules.query_handlers import query_chain
+from modules.query_handlers import query_chain, stream_chain
 from modules.load_vectorstore import index, embed_model
 from modules.retriever import PineconeRetriever
 from schemas import AskRequest, AskResponse
@@ -28,3 +28,20 @@ async def ask_question(request: AskRequest):
         logger.exception("Erreur du traitement de la question")
         # Message générique pour le client : le détail technique reste dans les journaux (pas de fuite d'informations internes)
         return JSONResponse(status_code=500, content={"error": "Erreur lors du traitement de la question."})
+
+
+@router.post("/ask/stream")
+async def ask_question_stream(request: AskRequest):
+    """
+    Version streaming de /ask/ : la réponse est envoyée au fil de la génération (format Server-Sent Events).
+    Événements : "sources" (citations), "token" (morceau de texte), "done" (fin) ou "error".
+    """
+    logger.info(f"Requête de l'utilisateur (streaming) : {request.question}")
+    return StreamingResponse(
+        stream_chain(chain, request.question),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",  # Le navigateur ou un proxy ne doit pas mettre le flux en cache
+            "X-Accel-Buffering": "no",  # Désactive la mise en tampon des proxys (ex. Nginx) qui retarderait les tokens
+        },
+    )

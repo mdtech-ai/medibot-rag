@@ -1,3 +1,4 @@
+import json
 import re
 from logger import logger
 
@@ -57,3 +58,31 @@ async def query_chain(chain, user_input:str):
     except Exception as e:
         logger.exception(f"Erreur lors de l'exécution de la chaîne LLM : {e}")
         raise  # Relance l'exception pour que la route renvoie une erreur 500 au lieu de None
+
+
+def sse_event(event: str, data) -> str:
+    """Formate un événement Server-Sent Events : une ligne "event", une ligne "data" (JSON), puis une ligne vide."""
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
+
+
+async def stream_chain(chain, user_input: str):
+    """
+    Exécute la chaîne en streaming et produit des événements SSE :
+    - "sources" : les citations, dès que la recherche dans Pinecone est terminée (avant la génération)
+    - "token"   : chaque morceau de texte généré par le LLM
+    - "done"    : fin de la réponse
+    - "error"   : en cas d'erreur (le code HTTP 200 est déjà parti, l'erreur est donc signalée dans le flux)
+    """
+    try:
+        logger.debug(f"Exécution de la chaîne en streaming pour la requête utilisateur : {user_input}")
+        # astream renvoie la sortie de la chaîne par morceaux : d'abord {"source_documents": [...]} et {"question": ...},
+        # puis {"answer": "..."} pour chaque token, grâce au StrOutputParser qui transmet le texte au fil de l'eau
+        async for chunk in chain.astream(user_input):
+            if "source_documents" in chunk:
+                yield sse_event("sources", format_sources(chunk["source_documents"]))
+            if chunk.get("answer"):
+                yield sse_event("token", {"text": chunk["answer"]})
+        yield sse_event("done", {})
+    except Exception as e:
+        logger.exception(f"Erreur lors du streaming de la chaîne LLM : {e}")
+        yield sse_event("error", {"error": "Erreur lors du traitement de la question."})
