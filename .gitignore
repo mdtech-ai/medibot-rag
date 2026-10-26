@@ -18,3 +18,6 @@ serveur/uploaded_docs/
 
 # Configuration locale de Claude Code (préférences personnelles)
 .claude/settings.local.json
+
+# Corpus de documents (téléchargé par scripts/download_corpus.py, non versionné)
+data/raw/

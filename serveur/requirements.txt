@@ -13,8 +13,6 @@ langchain-groq
 pinecone 
 
 # Embeddings
-# sentence-transformers
-# langchain-google-generative-ai 
 langchain-google-genai 
 
 # PDF Parsing
@@ -26,6 +24,7 @@ python-dotenv
 # Typing & Utilities
 pydantic
 requests
+truststore  # Vérification SSL via le système (scripts/download_corpus.py)
 tqdm
 
 # Logging (optional but recommended)
@@ -35,3 +34,9 @@ loguru
 # Vu qu'on utilise uv, on spécifiera donc: uv pip install -r requirements.txt
 
 
+
+# Embeddings locaux (modèle open source multilingual-e5-base)
+# Avec carte graphique NVIDIA : installer d'abord PyTorch CUDA, par ex.
+#   uv pip install torch --index-url https://download.pytorch.org/whl/cu124
+sentence-transformers
+langchain-huggingface
