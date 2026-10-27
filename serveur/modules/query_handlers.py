@@ -44,11 +44,11 @@ def format_sources(docs) -> list[dict]:
     return sources
 
 
-async def query_chain(chain, question: str, history: list[dict] | None = None):
+async def query_chain(chain, question: str, history: list[dict] | None = None, config: dict | None = None):
     try:
         logger.debug(f"Exécution de la chaîne pour la requête utilisateur : {question} (historique : {len(history or [])} messages)")
         # ainvoke (version asynchrone de invoke) : le serveur reste disponible pour les autres requêtes pendant l'appel au LLM
-        result = await chain.ainvoke({"question": question, "history": history or []})
+        result = await chain.ainvoke({"question": question, "history": history or []}, config=config)
         response = {
             "response": result["answer"],
             "standalone_question": result["standalone_question"],
@@ -66,7 +66,7 @@ def sse_event(event: str, data) -> str:
     return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
 
-async def stream_chain(chain, question: str, history: list[dict] | None = None):
+async def stream_chain(chain, question: str, history: list[dict] | None = None, config: dict | None = None):
     """
     Exécute la chaîne en streaming et produit des événements SSE :
     - "sources" : les citations, dès que la recherche dans Pinecone est terminée (avant la génération)
@@ -79,7 +79,7 @@ async def stream_chain(chain, question: str, history: list[dict] | None = None):
         # astream renvoie la sortie de la chaîne par morceaux : d'abord les clés intermédiaires (question, standalone_question,
         # source_documents...), puis {"answer": "..."} pour chaque token, grâce au StrOutputParser qui transmet le texte au fil de l'eau
         sources_sent = False
-        async for chunk in chain.astream({"question": question, "history": history or []}):
+        async for chunk in chain.astream({"question": question, "history": history or []}, config=config):
             if "source_documents" in chunk and not sources_sent:
                 sources_sent = True
                 yield sse_event("sources", format_sources(chunk["source_documents"]))

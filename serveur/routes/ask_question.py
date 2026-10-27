@@ -5,6 +5,7 @@ from modules.llm import get_llm_chain
 from modules.query_handlers import query_chain, stream_chain
 from modules.load_vectorstore import index, embed_model
 from modules.retriever import PineconeRetriever
+from modules.observability import tracing_config
 from schemas import AskRequest, AskResponse
 from logger import logger
 
@@ -20,7 +21,7 @@ async def ask_question(request: AskRequest):
     try:
         logger.info(f"Requête de l'utilisateur : {request.question}")
         history = [message.model_dump() for message in request.history]
-        result = await query_chain(chain, request.question, history)
+        result = await query_chain(chain, request.question, history, tracing_config("ask", request.session_id))
 
         logger.info("Requête traitée avec succès")
         return result
@@ -39,7 +40,12 @@ async def ask_question_stream(request: AskRequest):
     """
     logger.info(f"Requête de l'utilisateur (streaming) : {request.question}")
     return StreamingResponse(
-        stream_chain(chain, request.question, [message.model_dump() for message in request.history]),
+        stream_chain(
+            chain,
+            request.question,
+            [message.model_dump() for message in request.history],
+            tracing_config("ask-stream", request.session_id),
+        ),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",  # Le navigateur ou un proxy ne doit pas mettre le flux en cache

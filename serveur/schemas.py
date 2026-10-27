@@ -23,6 +23,12 @@ class AskRequest(BaseModel):
         max_length=50,
         description="Messages précédents de la conversation, du plus ancien au plus récent (seuls les derniers sont utilisés)",
     )
+    session_id: str | None = Field(
+        None,
+        max_length=100,
+        description="Identifiant de la conversation, généré par le client : regroupe ses questions dans Langfuse",
+        examples=["3f2b8c1e-conversation-demo"],
+    )
 
 
 class Source(BaseModel):

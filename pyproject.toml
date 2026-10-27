@@ -1,7 +1,7 @@
 [project]
 name = "medibot-rag"
 version = "0.1.0"
-description = "Assistant médical RAG en français : FastAPI, LangChain, Pinecone, Gemini embeddings, Groq"
+description = "Assistant médical RAG en français : FastAPI, LangChain, Pinecone, embeddings locaux multilingual-e5, Groq"
 readme = "README.md"
 authors = [
     { name = "Mamadou DIALLO", email = "mamadoudiallode1@gmail.com" }

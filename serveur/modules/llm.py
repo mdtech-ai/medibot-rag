@@ -43,10 +43,13 @@ def get_llm_chain(retriever):
         "source_documents" et "answer".
     """
 
-    # Modèle principal : génération des réponses
+    # Modèle principal : génération des réponses.
+    # temperature=0 : réponses déterministes. Pour un assistant médical factuel, la même question doit recevoir
+    # la même réponse ; c'est aussi indispensable pour que deux évaluations successives soient comparables.
     llm = ChatGroq(
         groq_api_key=GROQ_API_KEY,
         model_name=MODEL_NAME,
+        temperature=0,
         )
 
     # Modèle de reformulation : même modèle, mais déterministe (temperature=0) et avec un raisonnement réduit,
@@ -121,7 +124,7 @@ def get_llm_chain(retriever):
         | condense_llm
         | StrOutputParser()
         | (lambda text: text.strip()),
-    )
+    ).with_config(run_name="reformulation")
 
     # 3. Sous-chaîne de génération : documents + historique -> prompt -> LLM -> texte
     answer_chain = (
@@ -132,12 +135,14 @@ def get_llm_chain(retriever):
         | prompt
         | llm
         | StrOutputParser()
-    )
+    ).with_config(run_name="generation")
 
     # Chaîne complète : chaque étape ajoute sa clé au dictionnaire, en conservant les précédentes
     return (
         RunnablePassthrough.assign(standalone_question=standalone_question_chain)
         # 2. Recherche avec la question autonome (et non la question brute de l'utilisateur)
-        | RunnablePassthrough.assign(source_documents=itemgetter("standalone_question") | retriever)
+        | RunnablePassthrough.assign(
+            source_documents=(itemgetter("standalone_question") | retriever).with_config(run_name="recherche")
+        )
         | RunnablePassthrough.assign(answer=answer_chain)
     )

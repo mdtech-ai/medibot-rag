@@ -3,14 +3,23 @@ from dotenv import load_dotenv
 # Chargement des variables d'environnement (.env) une seule fois, avant tout import de module qui les utilise
 load_dotenv()
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from middlewares.exception_handlers import catch_exception_middleware
 from routes.upload_pdfs import router as upload_router 
 from routes.ask_question import router as ask_router
+from modules.observability import shutdown_tracing
 
 
-app = FastAPI(title="MedicalAIAssistant API", description="API for MedicalAIAssistant Chatbot", version="1.0.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    # À l'arrêt du serveur : les traces Langfuse sont envoyées par lots en arrière-plan, on envoie les dernières
+    shutdown_tracing()
+
+
+app = FastAPI(title="MedicalAIAssistant API", description="API for MedicalAIAssistant Chatbot", version="1.0.0", lifespan=lifespan)
 
 
 # CORS configuration to allow requests from any origin
