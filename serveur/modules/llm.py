@@ -13,8 +13,14 @@ MODEL_NAME = "openai/gpt-oss-120b"  # Llama 3.3 a été retiré de Groq ; liste 
 MAX_HISTORY_MESSAGES = 6  # Nombre de messages récents conservés (3 échanges) : assez pour le contexte, sans alourdir le prompt
 
 def format_docs(docs):
-    """Concatène le contenu des documents récupérés pour former le contexte du prompt."""
-    return "\n\n".join(doc.page_content for doc in docs)
+    """
+    Concatène les passages récupérés pour former le contexte du prompt, chacun précédé du titre de son document :
+    le LLM sait ainsi de quelle maladie parle chaque passage et évite de mélanger les recommandations de deux guides.
+    """
+    return "\n\n".join(
+        f"[Document : {doc.metadata['title']}]\n{doc.page_content}" if doc.metadata.get("title") else doc.page_content
+        for doc in docs
+    )
 
 def format_history(history):
     """Met en forme les derniers messages de la conversation : une ligne par message, préfixée par l'auteur."""

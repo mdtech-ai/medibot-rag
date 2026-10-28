@@ -8,6 +8,7 @@ from pinecone import Pinecone, ServerlessSpec
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from modules.embeddings import EMBEDDING_DIMENSION, get_embed_model
+from modules.pdf_cleaning import clean_pages
 from modules.pdf_handlers import save_uploaded_files
 from logger import logger
 
@@ -75,15 +76,26 @@ def embed_with_retry(texts: list[str]) -> list[list[float]]:
     return vectors
 
 
-def index_pdf(file_path: str) -> int:
+def document_title(file_path: str, pages) -> str:
+    """Titre du document : celui des métadonnées du PDF s'il existe, sinon le nom du fichier (« guide_bpco » -> « guide bpco »)."""
+    title = (pages[0].metadata.get("title") or "").strip() if pages else ""
+    return title or Path(file_path).stem.replace("_", " ").replace("-", " ")
+
+
+def index_pdf(file_path: str, title: str | None = None) -> int:
     """
     Indexe un fichier PDF déjà présent sur le disque : extraction du texte, découpage en chunks,
     vectorisation (embed) et indexation (upsert) dans Pinecone. Renvoie le nombre de chunks indexés.
     Utilisée par la route /upload_pdfs et par le script d'indexation du corpus (scripts/index_corpus.py).
+
+    title : titre du document, ajouté en en-tête de chaque chunk (par défaut : métadonnées du PDF ou nom du fichier).
     """
     # Chargement du fichier PDF
     loader = PyPDFLoader(file_path)
-    documents = loader.load()
+    pages = loader.load()
+    title = title or document_title(file_path, pages)
+    # Nettoyage avant découpage : en-têtes répétés, sommaire, bibliographie (voir modules/pdf_cleaning.py)
+    documents = clean_pages(pages)
 
     # Division du texte en morceaux (chunks) pour l'indexation
     text_splitter = RecursiveCharacterTextSplitter(
@@ -92,7 +104,10 @@ def index_pdf(file_path: str) -> int:
     )
     chunks = text_splitter.split_documents(documents)
 
-    texts = [chunk.page_content for chunk in chunks]  # Extraction du contenu textuel des chunks
+    # En-tête de contexte (« contextual chunk header ») : le titre du document est ajouté au texte vectorisé.
+    # Le nettoyage retire les en-têtes répétés de chaque page, qui portaient aussi le sujet du document : sans ce titre,
+    # un chunk sur « les seuils de mesure » ne dirait plus qu'il parle d'hypertension et ne remonterait plus.
+    texts = [f"{title}\n\n{chunk.page_content}" for chunk in chunks]
     # Métadonnées stockées avec chaque vecteur : uniquement ce qui sert aux citations, plus le texte du chunk sous la clé "text"
     # (Pinecone ne stocke que les vecteurs : sans cette clé, la route /ask/ ne pourrait pas retrouver le contenu).
     # On écarte les métadonnées du PDF (auteur, logiciel, dates...) : inutiles, et elles alourdissent chaque vecteur.
@@ -101,6 +116,7 @@ def index_pdf(file_path: str) -> int:
             "source": Path(file_path).name,  # Nom du fichier seul : ne révèle pas l'arborescence du serveur
             "page": chunk.metadata.get("page", 0),  # Numéro de page (commence à 0)
             "page_label": str(chunk.metadata.get("page_label", "")),  # Numéro affiché dans le PDF
+            "title": title,  # Titre du document : indiqué au LLM avec chaque passage (voir modules/llm.py)
             "text": chunk.page_content,
         }
         for chunk in chunks

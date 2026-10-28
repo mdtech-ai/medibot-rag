@@ -9,12 +9,14 @@ Usage (depuis la racine du projet, après scripts/download_corpus.py) :
     python scripts/index_corpus.py            # indexe uniquement les documents absents de l'index
     python scripts/index_corpus.py --force    # réindexe tous les documents (remplace les vecteurs existants)
 """
+import csv
 import sys
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT / "data" / "raw"
+SOURCES = ROOT / "data" / "sources.csv"
 
 # Le code du serveur s'importe depuis serveur/ (imports du type "from modules... import ...")
 sys.path.insert(0, str(ROOT / "serveur"))
@@ -32,6 +34,10 @@ def main():
         print(f"Aucun PDF dans {RAW_DIR} : lance d'abord scripts/download_corpus.py")
         return
 
+    # Titres propres du catalogue (data/sources.csv), utilisés comme en-tête de contexte de chaque chunk
+    with SOURCES.open(encoding="utf-8") as f:
+        titles = {row["fichier"]: f"{row['titre']} ({row['organisme']})" for row in csv.DictReader(f)}
+
     force = "--force" in sys.argv
     start = time.time()
     total_chunks = 0
@@ -43,7 +49,7 @@ def main():
             print(f"\n[{i}/{len(pdf_files)}] {pdf.name} : déjà indexé, ignoré (--force pour réindexer)")
             continue
         print(f"\n[{i}/{len(pdf_files)}] {pdf.name}")
-        total_chunks += index_pdf(str(pdf))
+        total_chunks += index_pdf(str(pdf), title=titles.get(pdf.name))
         indexed += 1
 
     print(f"\n{indexed} documents, {total_chunks} chunks indexés en {time.time() - start:.0f} s")
