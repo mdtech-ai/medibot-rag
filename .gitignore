@@ -21,3 +21,6 @@ serveur/uploaded_docs/
 
 # Corpus de documents (téléchargé par scripts/download_corpus.py, non versionné)
 data/raw/
+
+# Fichiers générés par Chainlit (client)
+client/.files/

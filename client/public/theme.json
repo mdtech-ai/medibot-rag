@@ -1,0 +1,22 @@
+{
+  "variables": {
+    "light": {
+      "--primary": "184 81% 29%",
+      "--primary-foreground": "0 0% 100%",
+      "--ring": "184 81% 29%",
+      "--accent": "184 40% 94%",
+      "--accent-foreground": "195 55% 13%",
+      "--sidebar-primary": "184 81% 29%",
+      "--sidebar-ring": "184 81% 29%"
+    },
+    "dark": {
+      "--primary": "182 58% 60%",
+      "--primary-foreground": "195 55% 10%",
+      "--ring": "182 58% 60%",
+      "--accent": "184 30% 22%",
+      "--accent-foreground": "210 40% 98%",
+      "--sidebar-primary": "182 58% 60%",
+      "--sidebar-ring": "182 58% 60%"
+    }
+  }
+}

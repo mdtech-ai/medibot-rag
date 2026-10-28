@@ -1,0 +1,4 @@
+# Client Chainlit : interface de chat qui consomme l'API MediBot (serveur/)
+# Installation : uv pip install -r client/requirements.txt
+chainlit
+httpx
