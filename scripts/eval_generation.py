@@ -50,6 +50,7 @@ from langchain_groq import ChatGroq  # noqa: E402
 from modules.embeddings import EMBEDDING_PROVIDER  # noqa: E402
 from modules.llm import MODEL_NAME, format_docs, get_llm_chain  # noqa: E402
 from modules.load_vectorstore import PINECONE_INDEX_NAME, embed_model, index  # noqa: E402
+from modules.reranker import FETCH_K, RERANKER_MODEL, reranker  # noqa: E402
 from modules.retriever import PineconeRetriever  # noqa: E402
 
 # Juge choisi après comparaison sur un cas d'hallucination connu (patient-06) : gpt-oss-20b (raisonnement « low »)
@@ -238,7 +239,7 @@ def main():
     if args.ids:
         cases = [c for c in cases if c["id"] in args.ids]
 
-    retriever = PineconeRetriever(index=index, embed_model=embed_model, top_k=TOP_K)
+    retriever = PineconeRetriever(index=index, embed_model=embed_model, top_k=TOP_K, reranker=reranker, fetch_k=FETCH_K)
     chain = get_llm_chain(retriever)  # Exactement la même chaîne que l'API
     # Pour les modèles gpt-oss, reasoning_effort="low" : avec le raisonnement par défaut ("medium"), la sortie
     # ne respecte régulièrement pas le schéma JSON (erreur json_validate_failed)
@@ -351,6 +352,8 @@ def main():
             "embedding_provider": EMBEDDING_PROVIDER,
             "index": PINECONE_INDEX_NAME,
             "top_k": TOP_K,
+            "reranker": RERANKER_MODEL if reranker else None,
+            "fetch_k": FETCH_K if reranker else None,
             "chunk_size": 500,
             "chunk_overlap": 100,
             "ids": args.ids,

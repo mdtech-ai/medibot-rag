@@ -5,6 +5,7 @@ from modules.llm import get_llm_chain
 from modules.query_handlers import query_chain, stream_chain
 from modules.load_vectorstore import index, embed_model
 from modules.retriever import PineconeRetriever
+from modules.reranker import FETCH_K, reranker
 from modules.observability import tracing_config
 from schemas import AskRequest, AskResponse
 from logger import logger
@@ -13,7 +14,7 @@ router = APIRouter()  # Initialisation du routeur FastAPI pour gérer les routes
 
 # Construits une seule fois au démarrage du serveur, puis réutilisés pour chaque question
 # (avant : connexion Pinecone, modèle d'embedding et chaîne recréés à chaque requête, ce qui ajoutait de la latence)
-retriever = PineconeRetriever(index=index, embed_model=embed_model, top_k=3)
+retriever = PineconeRetriever(index=index, embed_model=embed_model, top_k=3, reranker=reranker, fetch_k=FETCH_K)
 chain = get_llm_chain(retriever)
 
 @router.post("/ask/", response_model=AskResponse)

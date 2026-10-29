@@ -35,7 +35,7 @@ class Source(BaseModel):
     file: str = Field(..., description="Nom du fichier PDF", examples=["DIABETES.pdf"])
     page: int | None = Field(None, description="Numéro de page (commence à 1)", examples=[2])
     excerpt: str = Field(..., description="Début du passage utilisé pour répondre")
-    score: float | None = Field(None, description="Score de similarité cosinus entre la question et le passage (0 à 1)")
+    score: float | None = Field(None, description="Score de pertinence du passage (0 à 1) : score du reranker, ou similarité cosinus sans reranking")
 
 
 class AskResponse(BaseModel):

@@ -1,0 +1,2846 @@
+{
+  "date": "2026-10-29T08:31:32",
+  "config": {
+    "embedding_provider": "local",
+    "index": "medibot-e5-ctx",
+    "reranker": "BAAI/bge-reranker-v2-m3",
+    "fetch_k": 20,
+    "chunk_size": 500,
+    "chunk_overlap": 100,
+    "k": [
+      3,
+      5,
+      10
+    ]
+  },
+  "duree_s": 123.1,
+  "summary": {
+    "k=3": {
+      "global": {
+        "n": 33,
+        "hit": 0.879,
+        "mrr": 0.828,
+        "doc_hit": 0.939
+      },
+      "par_categorie": {
+        "fait": {
+          "n": 12,
+          "hit": 0.833,
+          "mrr": 0.792,
+          "doc_hit": 0.833
+        },
+        "langage_patient": {
+          "n": 6,
+          "hit": 0.833,
+          "mrr": 0.722,
+          "doc_hit": 1.0
+        },
+        "liste": {
+          "n": 9,
+          "hit": 0.889,
+          "mrr": 0.889,
+          "doc_hit": 1.0
+        },
+        "multi_documents": {
+          "n": 3,
+          "hit": 1.0,
+          "mrr": 1.0,
+          "doc_hit": 1.0
+        },
+        "suivi": {
+          "n": 3,
+          "hit": 1.0,
+          "mrr": 0.833,
+          "doc_hit": 1.0
+        }
+      }
+    },
+    "k=5": {
+      "global": {
+        "n": 33,
+        "hit": 0.97,
+        "mrr": 0.848,
+        "doc_hit": 1.0
+      },
+      "par_categorie": {
+        "fait": {
+          "n": 12,
+          "hit": 1.0,
+          "mrr": 0.829,
+          "doc_hit": 1.0
+        },
+        "langage_patient": {
+          "n": 6,
+          "hit": 1.0,
+          "mrr": 0.756,
+          "doc_hit": 1.0
+        },
+        "liste": {
+          "n": 9,
+          "hit": 0.889,
+          "mrr": 0.889,
+          "doc_hit": 1.0
+        },
+        "multi_documents": {
+          "n": 3,
+          "hit": 1.0,
+          "mrr": 1.0,
+          "doc_hit": 1.0
+        },
+        "suivi": {
+          "n": 3,
+          "hit": 1.0,
+          "mrr": 0.833,
+          "doc_hit": 1.0
+        }
+      }
+    },
+    "k=10": {
+      "global": {
+        "n": 33,
+        "hit": 0.97,
+        "mrr": 0.848,
+        "doc_hit": 1.0
+      },
+      "par_categorie": {
+        "fait": {
+          "n": 12,
+          "hit": 1.0,
+          "mrr": 0.829,
+          "doc_hit": 1.0
+        },
+        "langage_patient": {
+          "n": 6,
+          "hit": 1.0,
+          "mrr": 0.756,
+          "doc_hit": 1.0
+        },
+        "liste": {
+          "n": 9,
+          "hit": 0.889,
+          "mrr": 0.889,
+          "doc_hit": 1.0
+        },
+        "multi_documents": {
+          "n": 3,
+          "hit": 1.0,
+          "mrr": 1.0,
+          "doc_hit": 1.0
+        },
+        "suivi": {
+          "n": 3,
+          "hit": 1.0,
+          "mrr": 0.833,
+          "doc_hit": 1.0
+        }
+      }
+    }
+  },
+  "details": [
+    {
+      "id": "fait-01",
+      "categorie": "fait",
+      "question": "À partir de quels chiffres de pression artérielle parle-t-on d'hypertension artérielle ?",
+      "standalone_question": "À partir de quels chiffres de pression artérielle parle-t-on d'hypertension artérielle ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.762
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 10,
+          "score": 0.732
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.532
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.517
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.504
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.452
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.376
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.37
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.355
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 8,
+          "score": 0.324
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-02",
+      "categorie": "fait",
+      "question": "Quel est l'objectif de pression artérielle à 6 mois chez un patient hypertendu de moins de 80 ans ?",
+      "standalone_question": "Quel est l'objectif de pression artérielle à 6 mois chez un patient hypertendu de moins de 80 ans ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.994
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.984
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.897
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.782
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 8,
+          "score": 0.616
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.572
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 46,
+          "score": 0.507
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 41,
+          "score": 0.327
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.269
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 1,
+          "score": 0.234
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-03",
+      "categorie": "fait",
+      "question": "Quelle est la cible de pression artérielle systolique chez une personne hypertendue de 80 ans ou plus ?",
+      "standalone_question": "Quelle est la cible de pression artérielle systolique chez une personne hypertendue de 80 ans ou plus ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.997
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.935
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 46,
+          "score": 0.868
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.814
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 60,
+          "score": 0.728
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 41,
+          "score": 0.676
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26,
+          "score": 0.356
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 10,
+          "score": 0.341
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.333
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.254
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-04",
+      "categorie": "fait",
+      "question": "Qu'appelle-t-on une « HTA blouse blanche » ?",
+      "standalone_question": "Qu'appelle-t-on une « HTA blouse blanche » ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.996
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 8,
+          "score": 0.214
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 8,
+          "score": 0.079
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 1,
+          "score": 0.013
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.007
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 9,
+          "score": 0.007
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 8,
+          "score": 0.007
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.007
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 1,
+          "score": 0.007
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.006
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-05",
+      "categorie": "fait",
+      "question": "Quelle quantité maximale de sel par jour est recommandée chez un patient hypertendu ?",
+      "standalone_question": "Quelle quantité maximale de sel par jour est recommandée chez un patient hypertendu ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.747
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 25,
+          "score": 0.324
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 67,
+          "score": 0.146
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 40,
+          "score": 0.115
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 27,
+          "score": 0.094
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 67,
+          "score": 0.057
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 25,
+          "score": 0.051
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 18,
+          "score": 0.039
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.023
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 10,
+          "score": 0.017
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-06",
+      "categorie": "fait",
+      "question": "Quel critère spirométrique permet de poser le diagnostic de BPCO ?",
+      "standalone_question": "Quel critère spirométrique permet de poser le diagnostic de BPCO ?",
+      "expected": [
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 16
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 25,
+          "score": 0.98
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 16,
+          "score": 0.966
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 16,
+          "score": 0.95
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 16,
+          "score": 0.914
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 17,
+          "score": 0.907
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 15,
+          "score": 0.903
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 15,
+          "score": 0.902
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 16,
+          "score": 0.869
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 29,
+          "score": 0.846
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 15,
+          "score": 0.839
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 0.5,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 0.5,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 0.5,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-07",
+      "categorie": "fait",
+      "question": "Quelle prise de poids doit alerter un patient atteint d'insuffisance cardiaque ?",
+      "standalone_question": "Quelle prise de poids doit alerter un patient atteint d'insuffisance cardiaque ?",
+      "expected": [
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 26
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 64
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 26,
+          "score": 0.994
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 39,
+          "score": 0.99
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 18,
+          "score": 0.978
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 39,
+          "score": 0.941
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 29,
+          "score": 0.906
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 26,
+          "score": 0.896
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 17,
+          "score": 0.874
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 44,
+          "score": 0.823
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 30,
+          "score": 0.746
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 68,
+          "score": 0.733
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-08",
+      "categorie": "fait",
+      "question": "Quand commence la chute des cheveux après une chimiothérapie, et quand repoussent-ils ?",
+      "standalone_question": "Quand commence la chute des cheveux après une chimiothérapie, et quand repoussent-ils ?",
+      "expected": [
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.997
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.963
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.886
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.847
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 26,
+          "score": 0.814
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.649
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 53,
+          "score": 0.629
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 42,
+          "score": 0.625
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 26,
+          "score": 0.592
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 53,
+          "score": 0.574
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-09",
+      "categorie": "fait",
+      "question": "Quel est le taux de survie à 5 ans des mélanomes de la peau, tous stades confondus ?",
+      "standalone_question": "Quel est le taux de survie à 5 ans des mélanomes de la peau, tous stades confondus ?",
+      "expected": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24,
+          "score": 1.0
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 97,
+          "score": 0.755
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24,
+          "score": 0.595
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 97,
+          "score": 0.54
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 116,
+          "score": 0.433
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24,
+          "score": 0.416
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 116,
+          "score": 0.383
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 17,
+          "score": 0.275
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 98,
+          "score": 0.242
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 34,
+          "score": 0.229
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-10",
+      "categorie": "fait",
+      "question": "À quelle fréquence et avec quels examens faut-il dépister la maladie rénale chronique chez un patient à risque ?",
+      "standalone_question": "À quelle fréquence et avec quels examens faut-il dépister la maladie rénale chronique chez un patient à risque ?",
+      "expected": [
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 1
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 12,
+          "score": 0.976
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 55,
+          "score": 0.966
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 56,
+          "score": 0.953
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 1,
+          "score": 0.951
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 54,
+          "score": 0.943
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 56,
+          "score": 0.923
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 55,
+          "score": 0.916
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 56,
+          "score": 0.899
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 55,
+          "score": 0.892
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 12,
+          "score": 0.847
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": false,
+          "reciprocal_rank": 0.0,
+          "doc_hit": false
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 0.25,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 0.25,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-11",
+      "categorie": "fait",
+      "question": "Dans quelles situations faut-il orienter un patient atteint de maladie rénale chronique vers un néphrologue ?",
+      "standalone_question": "Dans quelles situations faut-il orienter un patient atteint de maladie rénale chronique vers un néphrologue ?",
+      "expected": [
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 2
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 33,
+          "score": 0.995
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 46,
+          "score": 0.985
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 14,
+          "score": 0.983
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 54,
+          "score": 0.975
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 2,
+          "score": 0.974
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 16,
+          "score": 0.971
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 21,
+          "score": 0.963
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 44,
+          "score": 0.945
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 43,
+          "score": 0.935
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 27,
+          "score": 0.918
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": false,
+          "reciprocal_rank": 0.0,
+          "doc_hit": false
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 0.2,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 0.2,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "fait-12",
+      "categorie": "fait",
+      "question": "Quels symptômes sont évocateurs d'un diabète ?",
+      "standalone_question": "Quels symptômes sont évocateurs d'un diabète ?",
+      "expected": [
+        {
+          "file": "has_diabete_type2_points_critiques.pdf",
+          "page": 1
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_diabete_type2_points_critiques.pdf",
+          "page": 1,
+          "score": 0.995
+        },
+        {
+          "file": "has_diabete_type2_points_critiques.pdf",
+          "page": 1,
+          "score": 0.991
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 11,
+          "score": 0.973
+        },
+        {
+          "file": "has_diabete_type2_points_critiques.pdf",
+          "page": 4,
+          "score": 0.862
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 58,
+          "score": 0.78
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 89,
+          "score": 0.715
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 37,
+          "score": 0.499
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 60,
+          "score": 0.423
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 25,
+          "score": 0.403
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 90,
+          "score": 0.281
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-01",
+      "categorie": "liste",
+      "question": "Quelles sont les mesures hygiéno-diététiques recommandées en cas d'hypertension artérielle ?",
+      "standalone_question": "Quelles sont les mesures hygiéno-diététiques recommandées en cas d'hypertension artérielle ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.999
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.993
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.983
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 10,
+          "score": 0.969
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.924
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.911
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.869
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26,
+          "score": 0.766
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.508
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 27,
+          "score": 0.255
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-02",
+      "categorie": "liste",
+      "question": "Que comprend le bilan paraclinique initial d'un patient hypertendu ?",
+      "standalone_question": "Que comprend le bilan paraclinique initial d'un patient hypertendu ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.912
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.911
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.647
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.116
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.079
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.072
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.072
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 1,
+          "score": 0.055
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.053
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.051
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-03",
+      "categorie": "liste",
+      "question": "Que signifie la règle ABCDE pour repérer un mélanome ?",
+      "standalone_question": "Que signifie la règle ABCDE pour repérer un mélanome ?",
+      "expected": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.973
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 96,
+          "score": 0.902
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 23,
+          "score": 0.739
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.159
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 58,
+          "score": 0.016
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 116,
+          "score": 0.012
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 17,
+          "score": 0.011
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 33,
+          "score": 0.011
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 47,
+          "score": 0.011
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 147,
+          "score": 0.009
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-04",
+      "categorie": "liste",
+      "question": "Quels signes d'alerte doivent conduire un patient insuffisant cardiaque à consulter rapidement ?",
+      "standalone_question": "Quels signes d'alerte doivent conduire un patient insuffisant cardiaque à consulter rapidement ?",
+      "expected": [
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 26
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 26,
+          "score": 0.996
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 64,
+          "score": 0.987
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 44,
+          "score": 0.986
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 29,
+          "score": 0.943
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 64,
+          "score": 0.921
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 30,
+          "score": 0.836
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 30,
+          "score": 0.827
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 10,
+          "score": 0.826
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 26,
+          "score": 0.787
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 32,
+          "score": 0.669
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-05",
+      "categorie": "liste",
+      "question": "Quels effets secondaires une chimiothérapie peut-elle entraîner ?",
+      "standalone_question": "Quels effets secondaires une chimiothérapie peut-elle entraîner ?",
+      "expected": [
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 21
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 21,
+          "score": 1.0
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 29,
+          "score": 0.999
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 9,
+          "score": 0.999
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 29,
+          "score": 0.999
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 31,
+          "score": 0.999
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 21,
+          "score": 0.999
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 29,
+          "score": 0.998
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 31,
+          "score": 0.998
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 29,
+          "score": 0.997
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 53,
+          "score": 0.997
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-06",
+      "categorie": "liste",
+      "question": "Quelles sont les composantes de la prise en charge de la BPCO ?",
+      "standalone_question": "Quelles sont les composantes de la prise en charge de la BPCO ?",
+      "expected": [
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 26
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 103,
+          "score": 0.996
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 30,
+          "score": 0.99
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 105,
+          "score": 0.971
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 39,
+          "score": 0.958
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 105,
+          "score": 0.929
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 24,
+          "score": 0.902
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 52,
+          "score": 0.9
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 47,
+          "score": 0.895
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 10,
+          "score": 0.878
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 94,
+          "score": 0.874
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": false,
+          "reciprocal_rank": 0.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": false,
+          "reciprocal_rank": 0.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": false,
+          "reciprocal_rank": 0.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-07",
+      "categorie": "liste",
+      "question": "Quels patients sont considérés comme à risque de maladie rénale chronique ?",
+      "standalone_question": "Quels patients sont considérés comme à risque de maladie rénale chronique ?",
+      "expected": [
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 1
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 1,
+          "score": 0.995
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26,
+          "score": 0.979
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 68,
+          "score": 0.93
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 54,
+          "score": 0.922
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 15,
+          "score": 0.91
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 12,
+          "score": 0.891
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 56,
+          "score": 0.886
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 45,
+          "score": 0.881
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 38,
+          "score": 0.854
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 27,
+          "score": 0.851
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-08",
+      "categorie": "liste",
+      "question": "Comment organiser sa vie quotidienne pour faire face à la fatigue liée au cancer ?",
+      "standalone_question": "Comment organiser sa vie quotidienne pour faire face à la fatigue liée au cancer ?",
+      "expected": [
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.989
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.954
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.948
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 6,
+          "score": 0.857
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 20,
+          "score": 0.721
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 18,
+          "score": 0.703
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.679
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 8,
+          "score": 0.53
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 8,
+          "score": 0.496
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.472
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "liste-09",
+      "categorie": "liste",
+      "question": "Quels sont les stades du mélanome de la peau ?",
+      "standalone_question": "Quels sont les stades du mélanome de la peau ?",
+      "expected": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24,
+          "score": 0.999
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 34,
+          "score": 0.999
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 24,
+          "score": 0.999
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 34,
+          "score": 0.996
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 97,
+          "score": 0.985
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 75,
+          "score": 0.983
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 97,
+          "score": 0.975
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 72,
+          "score": 0.974
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 97,
+          "score": 0.972
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 98,
+          "score": 0.97
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "patient-01",
+      "categorie": "langage_patient",
+      "question": "J'ai de la tension, combien de sel j'ai le droit de manger par jour ?",
+      "standalone_question": "J'ai de la tension, combien de sel j'ai le droit de manger par jour ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 67,
+          "score": 0.268
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 25,
+          "score": 0.179
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.096
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 25,
+          "score": 0.073
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 67,
+          "score": 0.039
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 40,
+          "score": 0.038
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 67,
+          "score": 0.026
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 17,
+          "score": 0.003
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 22,
+          "score": 0.003
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 67,
+          "score": 0.002
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "patient-02",
+      "categorie": "langage_patient",
+      "question": "Est-ce que mes cheveux vont repousser après la chimio ?",
+      "standalone_question": "Est-ce que mes cheveux vont repousser après la chimio ?",
+      "expected": [
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.993
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.946
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.93
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.903
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 26,
+          "score": 0.889
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.745
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 42,
+          "score": 0.742
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.722
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 25,
+          "score": 0.524
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 53,
+          "score": 0.465
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "patient-03",
+      "categorie": "langage_patient",
+      "question": "Est-ce que faire du sport aide contre la fatigue quand on a un cancer ?",
+      "standalone_question": "Est-ce que faire du sport aide contre la fatigue quand on a un cancer ?",
+      "expected": [
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 26
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.942
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 19,
+          "score": 0.929
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 26,
+          "score": 0.87
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 19,
+          "score": 0.823
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 26,
+          "score": 0.821
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.729
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 26,
+          "score": 0.664
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.655
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 18,
+          "score": 0.64
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 6,
+          "score": 0.598
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "patient-04",
+      "categorie": "langage_patient",
+      "question": "Je suis épuisé par mon cancer, c'est une bonne idée de faire de longues siestes ?",
+      "standalone_question": "Je suis épuisé par mon cancer, c'est une bonne idée de faire de longues siestes ?",
+      "expected": [
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.215
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.03
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 19,
+          "score": 0.029
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 6,
+          "score": 0.02
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.017
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.009
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 22,
+          "score": 0.009
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.005
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 23,
+          "score": 0.005
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 19,
+          "score": 0.005
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "patient-05",
+      "categorie": "langage_patient",
+      "question": "Comment savoir si un grain de beauté est inquiétant ?",
+      "standalone_question": "Comment savoir si un grain de beauté est inquiétant ?",
+      "expected": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.557
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 99,
+          "score": 0.312
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 100,
+          "score": 0.063
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.056
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 98,
+          "score": 0.053
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 146,
+          "score": 0.047
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.036
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 21,
+          "score": 0.024
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 17,
+          "score": 0.021
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 17,
+          "score": 0.011
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "patient-06",
+      "categorie": "langage_patient",
+      "question": "Mon médecin veut que je prenne ma tension à la maison, comment je dois faire ?",
+      "standalone_question": "Mon médecin veut que je prenne ma tension à la maison, comment je dois faire ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.042
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.015
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.013
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.011
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.01
+        },
+        {
+          "file": "inca_comprendre_chimiotherapie.pdf",
+          "page": 15,
+          "score": 0.004
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.002
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 25,
+          "score": 0.001
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 5,
+          "score": 0.001
+        },
+        {
+          "file": "has_insuffisance_cardiaque_guide.pdf",
+          "page": 57,
+          "score": 0.001
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": false,
+          "reciprocal_rank": 0.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 0.2,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 0.2,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "multi-01",
+      "categorie": "multi_documents",
+      "question": "Quel examen sanguin de la fonction rénale fait partie à la fois du bilan initial de l'hypertension artérielle et de celui du diabète de type 2 ?",
+      "standalone_question": "Quel examen sanguin de la fonction rénale fait partie à la fois du bilan initial de l'hypertension artérielle et de celui du diabète de type 2 ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3
+        },
+        {
+          "file": "has_diabete_type2_points_critiques.pdf",
+          "page": 5
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.647
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 46,
+          "score": 0.53
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 17,
+          "score": 0.367
+        },
+        {
+          "file": "has_diabete_type2_points_critiques.pdf",
+          "page": 5,
+          "score": 0.353
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.304
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 56,
+          "score": 0.205
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 56,
+          "score": 0.194
+        },
+        {
+          "file": "has_diabete_type2_guide.pdf",
+          "page": 46,
+          "score": 0.151
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 16,
+          "score": 0.144
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 3,
+          "score": 0.129
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "multi-02",
+      "categorie": "multi_documents",
+      "question": "Quelle classe de médicaments est privilégiée à la fois chez l'hypertendu atteint d'insuffisance rénale et pour contrôler l'albuminurie dans la maladie rénale chronique ?",
+      "standalone_question": "Quelle classe de médicaments est privilégiée à la fois chez l'hypertendu atteint d'insuffisance rénale et pour contrôler l'albuminurie dans la maladie rénale chronique ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 10
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 3
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26,
+          "score": 0.915
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 25,
+          "score": 0.81
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 67,
+          "score": 0.65
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 24,
+          "score": 0.619
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 25,
+          "score": 0.618
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 66,
+          "score": 0.499
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 15,
+          "score": 0.495
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 67,
+          "score": 0.485
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 11,
+          "score": 0.459
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 40,
+          "score": 0.414
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "multi-03",
+      "categorie": "multi_documents",
+      "question": "Quelles vaccinations sont recommandées à la fois dans la BPCO et dans la maladie rénale chronique ?",
+      "standalone_question": "Quelles vaccinations sont recommandées à la fois dans la BPCO et dans la maladie rénale chronique ?",
+      "expected": [
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 26
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 3
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 34
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 34,
+          "score": 0.922
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26,
+          "score": 0.73
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 34,
+          "score": 0.631
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 26,
+          "score": 0.585
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 33,
+          "score": 0.556
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 33,
+          "score": 0.516
+        },
+        {
+          "file": "has_bpco_guide.pdf",
+          "page": 29,
+          "score": 0.464
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 73,
+          "score": 0.442
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 26,
+          "score": 0.358
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 5,
+          "score": 0.339
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "suivi-01",
+      "categorie": "suivi",
+      "question": "Et faut-il la traiter avec des médicaments ?",
+      "standalone_question": "Faut-il traiter l'hypertension artérielle de type blouse blanche avec des médicaments ?",
+      "expected": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 2,
+          "score": 0.987
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.55
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.452
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.43
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 7,
+          "score": 0.422
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.418
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 9,
+          "score": 0.397
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.376
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 9,
+          "score": 0.358
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 6,
+          "score": 0.296
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "suivi-02",
+      "categorie": "suivi",
+      "question": "Et à partir de quelle taille est-ce suspect ?",
+      "standalone_question": "À partir de quelle taille un grain de beauté devient-il suspect ?",
+      "expected": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.299
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.096
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 21,
+          "score": 0.077
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 17,
+          "score": 0.027
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 146,
+          "score": 0.026
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 100,
+          "score": 0.016
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 99,
+          "score": 0.006
+        },
+        {
+          "file": "inca_fatigue_cancer.pdf",
+          "page": 32,
+          "score": 0.005
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 17,
+          "score": 0.003
+        },
+        {
+          "file": "inca_traitements_melanomes.pdf",
+          "page": 22,
+          "score": 0.002
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 1.0,
+          "doc_hit": true
+        }
+      }
+    },
+    {
+      "id": "suivi-03",
+      "categorie": "suivi",
+      "question": "Et au stade 4, tous les combien faut-il doser la créatinine ?",
+      "standalone_question": "Au stade 4 de la maladie rénale chronique, à quel intervalle doit-on doser la créatinine ?",
+      "expected": [
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 5
+        }
+      ],
+      "retrieved": [
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 39,
+          "score": 0.679
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 5,
+          "score": 0.672
+        },
+        {
+          "file": "has_hypertension_fiche_memo.pdf",
+          "page": 9,
+          "score": 0.594
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 12,
+          "score": 0.574
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 1,
+          "score": 0.503
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 23,
+          "score": 0.404
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 18,
+          "score": 0.32
+        },
+        {
+          "file": "has_maladie_renale_chronique_synthese.pdf",
+          "page": 1,
+          "score": 0.302
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 36,
+          "score": 0.3
+        },
+        {
+          "file": "has_maladie_renale_chronique_guide.pdf",
+          "page": 19,
+          "score": 0.262
+        }
+      ],
+      "metrics": {
+        "k=3": {
+          "hit": true,
+          "reciprocal_rank": 0.5,
+          "doc_hit": true
+        },
+        "k=5": {
+          "hit": true,
+          "reciprocal_rank": 0.5,
+          "doc_hit": true
+        },
+        "k=10": {
+          "hit": true,
+          "reciprocal_rank": 0.5,
+          "doc_hit": true
+        }
+      }
+    }
+  ]
+}

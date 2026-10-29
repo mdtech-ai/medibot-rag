@@ -36,6 +36,7 @@ from modules.embeddings import EMBEDDING_PROVIDER  # noqa: E402
 from modules.llm import get_llm_chain  # noqa: E402
 from modules.load_vectorstore import PINECONE_INDEX_NAME, embed_model, index  # noqa: E402
 from modules.query_handlers import format_sources  # noqa: E402
+from modules.reranker import FETCH_K, RERANKER_MODEL, reranker  # noqa: E402
 from modules.retriever import PineconeRetriever  # noqa: E402
 
 
@@ -63,7 +64,7 @@ def main():
     # Seuls les cas qui attendent une réponse et ont des sources de référence évaluent le retriever
     cases = [c for c in cases if c["comportement_attendu"] == "repondre" and c["sources"]]
 
-    retriever = PineconeRetriever(index=index, embed_model=embed_model, top_k=max_k)
+    retriever = PineconeRetriever(index=index, embed_model=embed_model, top_k=max_k, reranker=reranker, fetch_k=FETCH_K)
     # Première étape de la chaîne de l'API : reformulation de la question (sautée s'il n'y a pas d'historique)
     standalone_step = get_llm_chain(retriever).first
 
@@ -106,7 +107,7 @@ def main():
     }
 
     # Affichage
-    print(f"\nÉvaluation du retriever — {len(details)} cas — embeddings : {EMBEDDING_PROVIDER} — index : {PINECONE_INDEX_NAME}")
+    print(f"\nÉvaluation du retriever — {len(details)} cas — embeddings : {EMBEDDING_PROVIDER} — index : {PINECONE_INDEX_NAME} — reranker : {RERANKER_MODEL if reranker else "aucun"}")
     print(f"{'k':>4} | {'hit@k':>6} | {'MRR@k':>6} | {'doc_hit@k':>9}")
     for k in args.k:
         g = summary[f"k={k}"]["global"]
@@ -131,6 +132,8 @@ def main():
         "config": {
             "embedding_provider": EMBEDDING_PROVIDER,
             "index": PINECONE_INDEX_NAME,
+            "reranker": RERANKER_MODEL if reranker else None,
+            "fetch_k": FETCH_K if reranker else None,
             "chunk_size": 500,
             "chunk_overlap": 100,
             "k": args.k,
