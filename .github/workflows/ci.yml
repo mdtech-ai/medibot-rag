@@ -19,8 +19,9 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
+          activate-environment: true  # Environnement virtuel (le Python système d'Ubuntu refuse les installations, PEP 668)
       - name: Installation des dépendances de test
-        run: uv pip install --system -r requirements-dev.txt
+        run: uv pip install -r requirements-dev.txt
       - name: Lint (ruff)
         run: ruff check serveur client scripts tests
       - name: Tests unitaires (pytest)
@@ -40,10 +41,11 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
+          activate-environment: true  # Environnement virtuel (le Python système d'Ubuntu refuse les installations, PEP 668)
       - name: Installation (PyTorch CPU, plus léger que la version CUDA)
         run: |
-          uv pip install --system torch --index-url https://download.pytorch.org/whl/cpu
-          uv pip install --system -r serveur/requirements.txt
+          uv pip install torch --index-url https://download.pytorch.org/whl/cpu
+          uv pip install -r serveur/requirements.txt
       - name: Cache des modèles Hugging Face (e5 et reranker, environ 3 Go)
         uses: actions/cache@v4
         with:
