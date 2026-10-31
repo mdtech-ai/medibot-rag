@@ -1,0 +1,13 @@
+# Exclus du contexte de construction Docker : secrets, environnements, données et fichiers générés
+**/.env
+.git
+.github
+.venv
+.claude
+**/__pycache__
+data/
+tests/
+scripts/
+serveur/logs/
+serveur/uploaded_docs/
+client/.files/

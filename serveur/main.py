@@ -43,3 +43,9 @@ app.include_router(upload_router)
 # 2. Une autre route sera dédiée à la génération de réponses basées sur le texte extrait des fichiers PDF. (asking query)
 # Cette route permettra aux utilisateurs de poser des questions ou de demander des informations spécifiques, et l'application utilisera le texte extrait pour fournir des réponses pertinentes.
 app.include_router(ask_router)
+
+
+@app.get("/health")
+def health():
+    """Route de santé : utilisée par Docker et l'hébergeur pour savoir si l'API est prête (modèles chargés)."""
+    return {"status": "ok"}

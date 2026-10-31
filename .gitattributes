@@ -1,0 +1,2 @@
+# Scripts shell exécutés dans les conteneurs Linux : toujours en fins de ligne LF (CRLF ferait planter bash)
+*.sh text eol=lf

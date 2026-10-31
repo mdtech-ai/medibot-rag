@@ -1,0 +1,31 @@
+# Lancement local de MediBot : docker compose up --build
+# Puis : interface http://localhost:8001 , API http://localhost:8000/docs
+# Les clés d'API sont lues dans serveur/.env (jamais copiées dans l'image)
+services:
+  api:
+    build: .
+    image: medibot
+    command: bash -c "cd serveur && uvicorn main:app --host 0.0.0.0 --port 8000"
+    env_file: serveur/.env
+    environment:
+      # Sans carte graphique dans le conteneur : 10 passages reclassés au lieu de 20 (latence divisée par deux)
+      RERANKER_FETCH_K: "10"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+
+  client:
+    image: medibot
+    command: bash -c "cd client && chainlit run app.py --host 0.0.0.0 --port 8001 --headless"
+    environment:
+      MEDIBOT_API_URL: http://api:8000  # Nom du service : résolu par le réseau Docker
+    ports:
+      - "8001:8001"
+    depends_on:
+      api:
+        condition: service_healthy  # Chainlit démarre une fois l'API prête
