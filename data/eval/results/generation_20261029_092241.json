@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-29T09:22:41",
+  "config": {
+    "model": "openai/gpt-oss-120b",
+    "judge": "qwen/qwen3.8-27b",
+    "embedding_provider": "local",
+    "index": "medibot-e5-ctx",
+    "top_k": 3,
+    "reranker": "BAAI/bge-reranker-v2-m3",
+    "fetch_k": 20,
+    "context_window": 1,
+    "chunk_size": 500,
+    "chunk_overlap": 100,
+    "ids": [
+      "fait-03",
+      "patient-04",
+      "suivi-01",
+      "suivi-02",
+      "suivi-03"
+    ]
+  },
+  "summary": {
+    "reponses": {
+      "n": 5,
+      "faithfulness": 0.889,
+      "context_recall": 0.8,
+      "answer_correctness": 0.32,
+      "answer_relevancy": 0.909,
+      "taux_faux_refus": 0.4
+    },
+    "reponses_par_categorie": {
+      "fait": {
+        "n": 1,
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "answer_correctness": 0.6,
+        "answer_relevancy": 0.962,
+        "taux_faux_refus": 0.0
+      },
+      "langage_patient": {
+        "n": 1,
+        "faithfulness": null,
+        "context_recall": 1.0,
+        "answer_correctness": 0.0,
+        "answer_relevancy": null,
+        "taux_faux_refus": 1.0
+      },
+      "suivi": {
+        "n": 3,
+        "faithfulness": 0.834,
+        "context_recall": 0.667,
+        "answer_correctness": 0.333,
+        "answer_relevancy": 0.883,
+        "taux_faux_refus": 0.333
+      }
+    },
+    "comportements": {},
+    "latence_moyenne_s": 4.26,
+    "erreurs_juge": []
+  },
+  "details": [
+    {
+      "id": "fait-03",
+      "categorie": "fait",
+      "comportement_attendu": "repondre",
+      "question": "Quelle est la cible de pression artérielle systolique chez une personne hypertendue de 80 ans ou plus ?",
+      "standalone_question": "Quelle est la cible de pression artérielle systolique chez une personne hypertendue de 80 ans ou plus ?",
+      "answer": "Selon les documents de la HAS, chez les patients hypertendus âgés de 80 ans ou plus, la cible de pression artérielle systolique recommandée est :\n\n- **< 150 mm Hg** en consultation médicale, en veillant à ne pas provoquer d’hypotension orthostatique.  \n- Lors des mesures à domicile (AMT ou MAPA), on vise généralement **< 145 mm Hg** en moyenne diurne.\n\nCes valeurs constituent les objectifs tensionnels pour cette tranche d’âge, tout en restant attentif à la tolérance du patient.",
+      "reference": "Une pression artérielle systolique inférieure à 150 mmHg, sans hypotension orthostatique (PAS diurne en automesure ou MAPA < 145 mmHg). Chez ces patients, la lutte contre l'iatrogénie est impérative, avec en général pas plus de 3 antihypertenseurs.",
+      "latence_s": 5.86,
+      "metrics": {
+        "faux_refus": false,
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "answer_correctness": 0.6,
+        "answer_relevancy": 0.962,
+        "contradictions": [],
+        "affirmations_non_soutenues": [],
+        "faits_manquants": [
+          "La lutte contre l'iatrogénie est impérative chez ces patients",
+          "En général, pas plus de 3 antihypertenseurs"
+        ]
+      }
+    },
+    {
+      "id": "patient-04",
+      "categorie": "langage_patient",
+      "comportement_attendu": "repondre",
+      "question": "Je suis épuisé par mon cancer, c'est une bonne idée de faire de longues siestes ?",
+      "standalone_question": "Je suis épuisé par mon cancer, c'est une bonne idée de faire de longues siestes ?",
+      "answer": "Je suis désolé, mais je n'ai pas trouvé d'informations pertinentes dans les documents fournis.",
+      "reference": "Non, les siestes doivent être courtes autant que possible : un repos trop important dans la journée peut perturber le sommeil nocturne et provoquer une fatigue supplémentaire. Se reposer dans un fauteuil, en position assise ou allongée, limite la durée du sommeil ; il est utile de se coucher et de se lever à heures fixes.",
+      "latence_s": 3.06,
+      "metrics": {
+        "faux_refus": true,
+        "faithfulness": null,
+        "context_recall": 1.0,
+        "answer_correctness": 0.0,
+        "answer_relevancy": null,
+        "contradictions": [],
+        "affirmations_non_soutenues": [],
+        "faits_manquants": [
+          "Les siestes doivent être courtes autant que possible",
+          "Un repos trop important dans la journee peut perturber le sommeil nocturne",
+          "Un repos trop important dans la journee peut provoquer une fatigue supplementaire",
+          "Se reposer dans un fauteuil, en position assise ou allongee, limite la duree du sommeil",
+          "Il est utile de se coucher et de se lever a heures fixes"
+        ]
+      }
+    },
+    {
+      "id": "suivi-01",
+      "categorie": "suivi",
+      "comportement_attendu": "repondre",
+      "question": "Et faut-il la traiter avec des médicaments ?",
+      "standalone_question": "Faut-il traiter l'hypertension artérielle de type blouse blanche avec des médicaments ?",
+      "answer": "Je suis désolé, mais je n'ai pas trouvé d'informations pertinentes dans les documents fournis.",
+      "reference": "Non, l'HTA blouse blanche ne requiert habituellement pas de traitement antihypertenseur. Elle nécessite une surveillance tensionnelle annuelle et des mesures hygiéno-diététiques, car le risque de passage à une HTA permanente est élevé.",
+      "latence_s": 3.58,
+      "metrics": {
+        "faux_refus": true,
+        "faithfulness": null,
+        "context_recall": 1.0,
+        "answer_correctness": 0.0,
+        "answer_relevancy": null,
+        "contradictions": [],
+        "affirmations_non_soutenues": [],
+        "faits_manquants": [
+          "L'HTA blouse blanche ne requiert habituellement pas de traitement antihypertenseur",
+          "L'HTA blouse blanche nécessite une surveillance tensionnelle annuelle",
+          "L'HTA blouse blanche nécessite des mesures hygiéno-diététiques",
+          "Le risque de passage à une HTA permanente est élevé"
+        ]
+      }
+    },
+    {
+      "id": "suivi-02",
+      "categorie": "suivi",
+      "comportement_attendu": "repondre",
+      "question": "Et à partir de quelle taille est-ce suspect ?",
+      "standalone_question": "À partir de quelle taille un grain de beauté devient-il suspect ?",
+      "answer": "Selon le document fourni, le critère **D** de la règle « ABCDE » indique qu’une lésion suspecte de mélanome a généralement **un diamètre supérieur à 6 millimètres**. Ainsi, à partir d’une taille de plus de 6 mm, la lésion est considérée comme suspecte et il est recommandé de consulter un professionnel de santé pour un avis.",
+      "reference": "Une lésion susceptible d'être un mélanome a généralement une taille supérieure à 6 millimètres (critère D, diamètre en augmentation).",
+      "latence_s": 4.03,
+      "metrics": {
+        "faux_refus": false,
+        "faithfulness": 1.0,
+        "context_recall": 1.0,
+        "answer_correctness": 1.0,
+        "answer_relevancy": 0.854,
+        "contradictions": [],
+        "affirmations_non_soutenues": [],
+        "faits_manquants": []
+      }
+    },
+    {
+      "id": "suivi-03",
+      "categorie": "suivi",
+      "comportement_attendu": "repondre",
+      "question": "Et au stade 4, tous les combien faut-il doser la créatinine ?",
+      "standalone_question": "Et au stade 4 de la maladie rénale chronique, tous les combien faut-il doser la créatinine ?",
+      "answer": "Selon le document du **Guide du parcours de soins – Maladie rénale chronique de l’adulte (HAS)**, le dépistage de la maladie rénale chronique, quel que soit le stade, repose sur un dosage sanguin de la créatinine réalisé **une fois par an** chez les patients à risque.  \n\nLe texte ne précise pas de fréquence différente spécifiquement pour le stade 4 ; il indique donc que, même à ce stade, la créatinine doit être dosée **annuellement** (ou plus fréquemment si le clinicien le juge nécessaire, mais cela n’est pas mentionné dans le contexte fourni).",
+      "reference": "Au stade 4 (DFG estimé entre 15 et 29 ml/min/1,73 m²), la créatininémie est dosée tous les 1 à 3 mois.",
+      "latence_s": 4.77,
+      "metrics": {
+        "faux_refus": false,
+        "faithfulness": 0.667,
+        "context_recall": 0.0,
+        "answer_correctness": 0.0,
+        "answer_relevancy": 0.911,
+        "contradictions": [
+          "La réponse évaluée indique que la créatinine doit être dosée annuellement au stade 4, alors que la réponse de référence indique une fréquence de dosage tous les 1 à 3 mois.",
+          "La réponse évaluée affirme que le texte ne précise pas de fréquence différente pour le stade 4, ce qui contredit la réponse de référence qui fournit une fréquence spécifique (tous les 1 à 3 mois) pour ce stade."
+        ],
+        "affirmations_non_soutenues": [
+          "Même au stade 4, la créatinine doit être dosée annuellement."
+        ],
+        "faits_manquants": [
+          "Au stade 4, le DFG estimé est compris entre 15 et 29 ml/min/1,73 m².",
+          "Au stade 4, la créatininémie est dosée tous les 1 à 3 mois."
+        ]
+      }
+    }
+  ]
+}

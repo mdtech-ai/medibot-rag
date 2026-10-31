@@ -19,6 +19,10 @@ from logger import logger
 
 RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-v2-m3")
 FETCH_K = int(os.getenv("RERANKER_FETCH_K", "20"))  # Nombre de passages demandés à Pinecone avant reclassement
+# Seuil de pertinence : si même le meilleur passage a un score inférieur, aucun passage n'est transmis au LLM
+# (question hors du corpus). Valeur basse et prudente, choisie sur l'évaluation : les questions hors sujet du jeu
+# de test ont un meilleur score de 0,000 à 0,135, les questions avec réponse de 0,042 à 1,000 (marge étroite).
+MIN_SCORE = float(os.getenv("RERANKER_MIN_SCORE", "0.03"))
 
 
 def get_reranker():
