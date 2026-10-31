@@ -1,5 +1,6 @@
 import json
 import re
+
 from logger import logger
 
 EXCERPT_LENGTH = 200  # Nombre de caractères du passage renvoyés au client

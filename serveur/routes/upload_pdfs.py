@@ -1,8 +1,9 @@
-from fastapi import APIRouter, UploadFile, File
 from typing import List
-from modules.load_vectorstore import load_vectorstore
+
+from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
 from logger import logger
+from modules.load_vectorstore import load_vectorstore
 
 router = APIRouter() # Initialisation du routeur FastAPI pour gérer les routes liées au téléchargement de fichiers PDF
 

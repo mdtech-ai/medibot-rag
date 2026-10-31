@@ -1,5 +1,6 @@
 import shutil
 from pathlib import Path
+
 from fastapi import UploadFile
 
 # Répertoire pour stocker les fichiers PDF téléchargés : serveur/uploaded_docs (indépendant du dossier depuis lequel le serveur est lancé)

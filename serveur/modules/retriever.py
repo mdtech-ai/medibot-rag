@@ -3,6 +3,7 @@
 # puis (si window > 0) élargit chaque chunk retenu à ses voisins immédiats dans le document
 import os
 from typing import Any, List
+
 from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
 from langchain_core.retrievers import BaseRetriever

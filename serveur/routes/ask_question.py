@@ -1,14 +1,14 @@
 # Les bibliothèques nécessaires
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse, StreamingResponse
-from modules.llm import get_llm_chain
-from modules.query_handlers import query_chain, stream_chain
-from modules.load_vectorstore import index, embed_model
-from modules.retriever import CONTEXT_WINDOW, PineconeRetriever
-from modules.reranker import FETCH_K, MIN_SCORE, reranker
-from modules.observability import tracing_config
-from schemas import AskRequest, AskResponse
 from logger import logger
+from modules.llm import get_llm_chain
+from modules.load_vectorstore import embed_model, index
+from modules.observability import tracing_config
+from modules.query_handlers import query_chain, stream_chain
+from modules.reranker import FETCH_K, MIN_SCORE, reranker
+from modules.retriever import CONTEXT_WINDOW, PineconeRetriever
+from schemas import AskRequest, AskResponse
 
 router = APIRouter()  # Initialisation du routeur FastAPI pour gérer les routes liées aux questions posées par les utilisateurs
 

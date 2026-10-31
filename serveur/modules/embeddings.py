@@ -2,6 +2,7 @@
 # Les documents et les questions doivent impérativement être vectorisés avec le même modèle :
 # changer de modèle impose de réindexer tout le corpus, dans un index Pinecone dédié.
 import os
+
 from dotenv import load_dotenv
 from langchain_core.embeddings import Embeddings
 

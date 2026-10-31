@@ -1,5 +1,6 @@
 # Schémas Pydantic : format des données échangées avec l'API (validation des entrées et documentation automatique dans /docs)
 from typing import Literal
+
 from pydantic import BaseModel, ConfigDict, Field
 
 

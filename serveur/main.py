@@ -4,12 +4,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from middlewares.exception_handlers import catch_exception_middleware
-from routes.upload_pdfs import router as upload_router 
-from routes.ask_question import router as ask_router
 from modules.observability import shutdown_tracing
+from routes.ask_question import router as ask_router
+from routes.upload_pdfs import router as upload_router
 
 
 @asynccontextmanager

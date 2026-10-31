@@ -57,6 +57,8 @@ def evaluate_case(retrieved: list[dict], expected: list[dict], k: int) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--k", type=int, nargs="+", default=[3, 5, 10], help="Nombres de résultats évalués")
+    parser.add_argument("--min-hit3", type=float, default=None,
+                        help="Barrière d'évaluation (CI) : échec (code de sortie 1) si le hit@3 global est inférieur")
     args = parser.parse_args()
     max_k = max(args.k)
 
@@ -143,6 +145,14 @@ def main():
         "details": details,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nRésultats détaillés : {output.relative_to(ROOT)}")
+
+    # Barrière d'évaluation : une régression de la recherche fait échouer la CI
+    if args.min_hit3 is not None:
+        hit3 = summary["k=3"]["global"]["hit"]
+        if hit3 < args.min_hit3:
+            print(f"ÉCHEC de la barrière d'évaluation : hit@3 = {hit3:.1%} < {args.min_hit3:.1%}")
+            sys.exit(1)
+        print(f"Barrière d'évaluation réussie : hit@3 = {hit3:.1%} >= {args.min_hit3:.1%}")
 
 
 if __name__ == "__main__":

@@ -1,17 +1,17 @@
 # Module de gestion du chargement du vectorstore pour l'application MedicalAIAssistant
-import os 
-import time 
+import os
+import time
 from pathlib import Path
+
 from dotenv import load_dotenv
-from tqdm.auto import tqdm
-from pinecone import Pinecone, ServerlessSpec
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from logger import logger
 from modules.embeddings import EMBEDDING_DIMENSION, get_embed_model
 from modules.pdf_cleaning import clean_pages
 from modules.pdf_handlers import save_uploaded_files
-from logger import logger
-
+from pinecone import Pinecone, ServerlessSpec
+from tqdm.auto import tqdm
 
 load_dotenv()
 
@@ -19,8 +19,8 @@ PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_ENV = "us-east-1" # Région de Pinecone (AWS par défaut: version gratuite US East 1)
 PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME") # Nom de l'index Pinecone pour stocker les vecteurs (défini dans .env)
 
-# Initialisation de Pinecone avec la clé d'API 
-pc = Pinecone(api_key=PINECONE_API_KEY) 
+# Initialisation de Pinecone avec la clé d'API
+pc = Pinecone(api_key=PINECONE_API_KEY)
 spec = ServerlessSpec(cloud="aws", region=PINECONE_ENV)  # Spécification du serveur Pinecone (AWS par défaut)
 existing_indexes = [i["name"] for i in pc.list_indexes()]  # Liste des index existants dans Pinecone
 

@@ -1,0 +1,8 @@
+# Outils de développement et dépendances minimales des tests unitaires (sans PyTorch ni modèles : rapides en CI)
+# Installation : uv pip install -r requirements-dev.txt
+pytest
+ruff
+langchain-core
+langchain-groq
+pydantic
+python-dotenv

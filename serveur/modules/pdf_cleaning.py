@@ -15,7 +15,6 @@ import re
 from collections import Counter
 
 from langchain_core.documents import Document
-
 from logger import logger
 
 REPEATED_LINE_MIN_RATIO = 0.3  # Une ligne présente sur au moins 30 % des pages est un en-tête ou un pied de page

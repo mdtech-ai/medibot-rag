@@ -11,3 +11,22 @@ dependencies = []
 
 [tool.uv]
 package = false  # Application (pas une bibliothèque) : uv installe les dépendances sans construire de paquet
+
+[tool.ruff]
+line-length = 130
+target-version = "py312"
+
+[tool.ruff.lint]
+# Erreurs (E, F), avertissements de style (W) et ordre des imports (I)
+select = ["E", "F", "W", "I"]
+# Longueur de ligne non imposée : les commentaires pédagogiques en français sont volontairement détaillés
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Les scripts et le serveur importent certains modules après load_dotenv() ou sys.path.insert() : c'est voulu
+"scripts/*" = ["E402"]
+"serveur/main.py" = ["E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["serveur"]  # Le code du serveur s'importe depuis serveur/ ("from modules... import ...")

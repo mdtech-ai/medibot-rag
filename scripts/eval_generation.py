@@ -46,7 +46,6 @@ from dotenv import load_dotenv  # noqa: E402
 load_dotenv(ROOT / "serveur" / ".env")
 
 from langchain_groq import ChatGroq  # noqa: E402
-
 from modules.embeddings import EMBEDDING_PROVIDER  # noqa: E402
 from modules.llm import MODEL_NAME, format_docs, get_llm_chain  # noqa: E402
 from modules.load_vectorstore import PINECONE_INDEX_NAME, embed_model, index  # noqa: E402
