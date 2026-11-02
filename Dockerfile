@@ -1,6 +1,6 @@
 # Image unique de MediBot : API FastAPI (serveur/) + client Chainlit (client/)
 # - en local : docker compose lance deux conteneurs à partir de cette image (voir docker-compose.yml)
-# - sur Hugging Face Spaces : docker/start.sh lance les deux processus dans un seul conteneur (port 7860)
+# - hébergement à conteneur unique (ex. Cloud Run) : docker/start.sh lance les deux processus (port 7860 ou $PORT)
 FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \
@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1 \
     # Les modèles Hugging Face sont stockés dans l'image (téléchargés une fois, à la construction)
     HF_HOME=/app/.cache/huggingface
 
-# Utilisateur non root (bonne pratique de sécurité, et exigence de Hugging Face Spaces : identifiant 1000)
+# Utilisateur non root (bonne pratique de sécurité : un processus compromis n'a pas les droits d'administration)
 RUN useradd --create-home --uid 1000 user
 WORKDIR /app
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Démarrage tout-en-un (Hugging Face Spaces) : l'API écoute en interne sur le port 8000,
+# Démarrage tout-en-un (hébergement à conteneur unique, ex. Cloud Run) : l'API écoute en interne sur le port 8000,
 # le client Chainlit est exposé sur le port public (7860 par défaut) et appelle l'API en local.
 set -euo pipefail
 
 cd /app/serveur
-# Sur CPU (démo en ligne) : 10 passages reclassés au lieu de 20, pour une latence acceptable
+# Sur CPU (sans carte graphique) : 10 passages reclassés au lieu de 20, pour une latence acceptable
 export RERANKER_FETCH_K="${RERANKER_FETCH_K:-10}"
 uvicorn main:app --host 127.0.0.1 --port 8000 &
 

@@ -1,14 +1,3 @@
----
-title: MediBot
-emoji: 🩺
-colorFrom: green
-colorTo: blue
-sdk: docker
-app_port: 7860
-pinned: false
-short_description: Assistant médical RAG sourcé (guides HAS et INCa)
----
-
 # MediBot — assistant médical RAG en français
 
 MediBot répond à des questions de santé **à partir de guides officiels** de la Haute Autorité de Santé (HAS) et de
@@ -100,11 +89,16 @@ python scripts/eval_generation.py       # réponses : LLM juge (environ 30 min, 
 pytest                                  # 27 tests unitaires, sans clé d'API
 ```
 
+**Déployer** : l'image Docker est autonome (modèles inclus) et tourne chez tout hébergeur de conteneurs disposant
+d'environ 4 Go de mémoire, par exemple Google Cloud Run (`docker/start.sh` lance l'API et l'interface dans un seul
+conteneur, sur le port 7860 ou `$PORT`). Pas de démo hébergée : les offres gratuites sans carte bancaire
+plafonnent à environ 512 Mo, insuffisant pour les deux modèles locaux.
+
 ## Qualité et production
 
 - **Tests** : nettoyage des PDF, retriever (reranking, seuil, passages voisins), citations, validation des requêtes.
 - **CI** (GitHub Actions) : lint et tests à chaque push ; **barrière d'évaluation** : la CI échoue si le hit@3
-  passe sous 80 % sur le vrai index ; déploiement automatique sur Hugging Face Spaces si tout réussit.
+  passe sous 80 % sur le vrai index.
 - **Sécurité** : clés hors du code ; ajout de documents protégé par jeton d'administration ; messages d'erreur
   génériques côté client ; noms de fichiers assainis ; entrées validées (longueur, rôles de l'historique).
 - **Serveur sans état** : l'historique de conversation est envoyé par le client ; un `session_id` regroupe les
@@ -118,7 +112,7 @@ pytest                                  # 27 tests unitaires, sans clé d'API
   serait nécessaire pour le confirmer. Plus généralement, 43 questions ne suffisent pas à départager des variantes
   proches (une question = 2 à 3 points de pourcentage).
 - **Latence** : environ 4,5 s par question sur une petite carte graphique (le reranker représente 2 s) ; sur CPU
-  (démo en ligne), 10 candidats sont reclassés au lieu de 20.
+  (conteneur Docker), 10 candidats sont reclassés au lieu de 20.
 - **Corpus** limité à 10 guides ; pas de lecture des images des PDF.
 
 ## Corpus
