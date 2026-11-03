@@ -89,10 +89,9 @@ python scripts/eval_generation.py       # réponses : LLM juge (environ 30 min, 
 pytest                                  # 27 tests unitaires, sans clé d'API
 ```
 
-**Déployer** : l'image Docker est autonome (modèles inclus) et tourne chez tout hébergeur de conteneurs disposant
-d'environ 4 Go de mémoire, par exemple Google Cloud Run (`docker/start.sh` lance l'API et l'interface dans un seul
-conteneur, sur le port 7860 ou `$PORT`). Pas de démo hébergée : les offres gratuites sans carte bancaire
-plafonnent à environ 512 Mo, insuffisant pour les deux modèles locaux.
+**Docker et carte graphique** : l'image tourne sur processeur (aucune carte graphique dans le conteneur). Le reranker
+y est nettement plus lent : environ 10 s par question avec 10 passages reclassés, contre environ 4,5 s (20 passages)
+en lançant l'API directement sur une machine équipée d'une carte graphique NVIDIA.
 
 ## Qualité et production
 

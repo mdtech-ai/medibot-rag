@@ -1,6 +1,6 @@
 # Image unique de MediBot : API FastAPI (serveur/) + client Chainlit (client/)
 # - en local : docker compose lance deux conteneurs à partir de cette image (voir docker-compose.yml)
-# - hébergement à conteneur unique (ex. Cloud Run) : docker/start.sh lance les deux processus (port 7860 ou $PORT)
+# - en un seul conteneur : docker/start.sh lance les deux processus (port 7860 ou $PORT)
 FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \

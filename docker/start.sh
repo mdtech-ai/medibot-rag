@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Démarrage tout-en-un (hébergement à conteneur unique, ex. Cloud Run) : l'API écoute en interne sur le port 8000,
+# Démarrage tout-en-un (un seul conteneur) : l'API écoute en interne sur le port 8000,
 # le client Chainlit est exposé sur le port public (7860 par défaut) et appelle l'API en local.
 set -euo pipefail
 
