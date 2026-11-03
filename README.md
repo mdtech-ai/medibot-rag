@@ -6,11 +6,35 @@ son corpus, ne pose pas de diagnostic et ne donne pas de posologie personnalisé
 
 Le projet couvre toute la chaîne d'un système RAG en production : indexation, recherche
 vectorielle + reranking, génération en streaming, **évaluation mesurée** à chaque amélioration, observabilité,
-tests, CI avec barrière d'évaluation, conteneurisation et déploiement.
+tests, CI avec barrière d'évaluation et conteneurisation.
+
+**Chiffres clés** : exactitude des réponses de 46 % à 78 %, faux refus de 15 % à 3 %, 100 % des garde-fous respectés,
+chaque amélioration mesurée sur un jeu de test de 43 questions.
 
 > ⚠️ Projet de démonstration : MediBot fournit des informations générales et ne remplace pas l'avis d'un professionnel de santé.
 
+**Sommaire** : [Architecture](#architecture) · [Résultats](#résultats) · [Démarrage rapide](#démarrage-rapide) ·
+[Qualité et production](#qualité-et-production) · [Limites connues](#limites-connues) · [Corpus](#corpus)
+
+## Architecture
+
 ![Architecture de MediBot : pipeline d'indexation, puis recherche et génération](docs/architecture.svg)
+
+Deux phases : l'**indexation**, faite une fois à l'avance (nettoyage, découpage, vectorisation, stockage dans Pinecone),
+puis, pour chaque question, la **recherche et la génération** (reformulation, recherche vectorielle, reranking,
+seuil de pertinence, passages voisins, réponse en streaming avec citations).
+
+| Composant | Choix | Pourquoi |
+|---|---|---|
+| API | FastAPI, Pydantic, streaming SSE | validation des entrées, documentation `/docs`, réponse affichée au fil de l'eau |
+| Orchestration | LangChain (LCEL) | chaîne composable : reformulation → recherche → génération |
+| Embeddings | `intfloat/multilingual-e5-base` (local) | multilingue, gratuit, sans quota |
+| Base vectorielle | Pinecone serverless | index managé, offre gratuite |
+| Reranker | `BAAI/bge-reranker-v2-m3` (local) | cross-encoder multilingue : le plus gros gain mesuré |
+| LLM | `openai/gpt-oss-120b` via Groq, température 0 | réponses déterministes, évaluations comparables |
+| Évaluation | LLM juge `qwen3.8-27b` (autre famille que le modèle évalué) | métriques inspirées de RAGAS, sans biais d'auto-évaluation |
+| Observabilité | Langfuse | trace de chaque question : reformulation, passages et scores, prompt, tokens, latence |
+| Interface | Chainlit | client de l'API (aucune logique RAG côté client) |
 
 ## Résultats
 
@@ -40,32 +64,6 @@ Chaque amélioration a été mesurée séparément (résultats versionnés dans 
 | Élargissement aux passages voisins | réponses coupées entre deux passages retrouvées ; rappel du contexte 0,60 → 0,86 |
 | Consignes précisées (questions personnelles, sujet exact) | faux refus 15 % → 0 à 3 % selon les passages |
 | Seuil de pertinence du reranker | question hors sujet bloquée avant le LLM (comportements 100 %) |
-
-## Architecture
-
-```
-Navigateur ─► Chainlit (client/) ──HTTP/SSE──► API FastAPI (serveur/)
-                                                 │
-                    1. reformulation de la question de suivi (LLM, si historique)
-                    2. recherche : embeddings multilingual-e5 ─► Pinecone (20 candidats)
-                    3. reranking : cross-encoder bge-reranker-v2-m3 ─► 3 meilleurs + seuil de pertinence
-                    4. élargissement aux passages voisins
-                    5. génération en streaming : gpt-oss-120b (Groq), avec citations
-                                                 │
-                                         traces ─► Langfuse
-```
-
-| Composant | Choix | Pourquoi |
-|---|---|---|
-| API | FastAPI, Pydantic, streaming SSE | validation des entrées, documentation `/docs`, réponse affichée au fil de l'eau |
-| Orchestration | LangChain (LCEL) | chaîne composable : reformulation → recherche → génération |
-| Embeddings | `intfloat/multilingual-e5-base` (local) | multilingue, gratuit, sans quota |
-| Base vectorielle | Pinecone serverless | index managé, offre gratuite |
-| Reranker | `BAAI/bge-reranker-v2-m3` (local) | cross-encoder multilingue : le plus gros gain mesuré |
-| LLM | `openai/gpt-oss-120b` via Groq, température 0 | réponses déterministes, évaluations comparables |
-| Évaluation | LLM juge `qwen3.8-27b` (autre famille que le modèle évalué) | métriques inspirées de RAGAS, sans biais d'auto-évaluation |
-| Observabilité | Langfuse | trace de chaque question : reformulation, passages et scores, prompt, tokens, latence |
-| Interface | Chainlit | client de l'API (aucune logique RAG côté client) |
 
 ## Démarrage rapide
 
