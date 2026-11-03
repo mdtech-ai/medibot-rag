@@ -13,8 +13,14 @@ chaque amélioration mesurée sur un jeu de test de 43 questions.
 
 > Projet de démonstration : MediBot fournit des informations générales et ne remplace pas l'avis d'un professionnel de santé.
 
-**Sommaire** : [Architecture](#architecture) ·   [Résultats](#résultats) ·   [Démarrage rapide](#démarrage-rapide) ·
-[Qualité et production](#qualité-et-production) ·   [Limites connues](#limites-connues) ·   [Corpus](#corpus)
+## Sommaire
+
+- [Architecture](#architecture)
+- [Résultats](#résultats)
+- [Démarrage rapide](#démarrage-rapide)
+- [Qualité et production](#qualité-et-production)
+- [Limites connues](#limites-connues)
+- [Corpus](#corpus)
 
 ## Architecture
 
@@ -67,29 +73,65 @@ Chaque amélioration a été mesurée séparément (résultats versionnés dans 
 
 ## Démarrage rapide
 
-**Avec Docker** (recommandé) :
+### Avec Docker (recommandé)
+
+1. Copier le modèle de configuration, puis y renseigner les clés (Groq, Pinecone ; Langfuse facultatif) :
+
+   ```bash
+   cp serveur/.env.example serveur/.env
+   ```
+
+2. Construire l'image et lancer l'API et l'interface :
+
+   ```bash
+   docker compose up --build
+   ```
+
+3. Ouvrir l'interface sur http://localhost:8001 (documentation de l'API : http://localhost:8000/docs).
+
+### Sans Docker
+
+Prérequis : Python 3.12 et [uv](https://docs.astral.sh/uv/).
+
+1. Installer les dépendances :
+
+   ```bash
+   uv venv
+   uv pip install -r serveur/requirements.txt -r client/requirements.txt
+   ```
+
+2. Télécharger les 10 guides, puis les indexer dans Pinecone (nettoyage, découpage, embeddings) :
+
+   ```bash
+   python scripts/download_corpus.py
+   python scripts/index_corpus.py
+   ```
+
+3. Lancer l'API (terminal 1) :
+
+   ```bash
+   cd serveur
+   uvicorn main:app
+   ```
+
+4. Lancer l'interface (terminal 2) :
+
+   ```bash
+   cd client
+   chainlit run app.py --port 8001
+   ```
+
+### Évaluer et tester
 
 ```bash
-cp serveur/.env.example serveur/.env    # puis renseigner les clés (Groq, Pinecone, Langfuse facultatif)
-docker compose up --build               # interface : http://localhost:8001 — API : http://localhost:8000/docs
-```
+# Recherche : hit@k, MRR@k (sans LLM, environ 1 min)
+python scripts/eval_retrieval.py
 
-**Sans Docker** (Python 3.12, [uv](https://docs.astral.sh/uv/)) :
+# Réponses : LLM juge (environ 30 min, consomme le quota Groq)
+python scripts/eval_generation.py
 
-```bash
-uv venv && uv pip install -r serveur/requirements.txt -r client/requirements.txt
-python scripts/download_corpus.py       # télécharge les 10 guides (data/sources.csv)
-python scripts/index_corpus.py          # nettoyage, découpage, embeddings, indexation dans Pinecone
-cd serveur && uvicorn main:app          # API sur le port 8000
-cd client && chainlit run app.py --port 8001
-```
-
-**Évaluer** :
-
-```bash
-python scripts/eval_retrieval.py        # recherche : hit@k, MRR@k (sans LLM, environ 1 min)
-python scripts/eval_generation.py       # réponses : LLM juge (environ 30 min, quota Groq)
-pytest                                  # 27 tests unitaires, sans clé d'API
+# Tests unitaires (27 tests, sans clé d'API)
+pytest
 ```
 
 **Docker et carte graphique** : l'image tourne sur processeur (aucune carte graphique dans le conteneur). Le reranker
