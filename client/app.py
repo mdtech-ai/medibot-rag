@@ -13,6 +13,7 @@ import os
 
 import chainlit as cl
 import httpx
+from chainlit.logger import logger
 
 API_URL = os.getenv("MEDIBOT_API_URL", "http://127.0.0.1:8000")
 MAX_HISTORY_MESSAGES = 10  # Le serveur n'en utilise que les 6 derniers ; inutile d'en envoyer davantage
@@ -83,11 +84,10 @@ async def on_message(message: cl.Message):
                         await answer.stream_token(data["text"])
                     elif event == "error":
                         await answer.stream_token(f"\n\n❌ {data['error']}")
-    except httpx.ConnectError:
-        await cl.ErrorMessage(content=f"L'API MediBot est injoignable ({API_URL}). Le serveur est-il lancé ?").send()
-        return
     except httpx.HTTPError as e:
-        await cl.ErrorMessage(content=f"Erreur lors de l'appel à l'API : {e}").send()
+        # Le détail (adresse de l'API, cause technique) reste dans les journaux : l'utilisateur n'a pas à connaître l'architecture
+        logger.error(f"Échec de l'appel à l'API MediBot ({API_URL}) : {e!r}")
+        await cl.ErrorMessage(content="MediBot est momentanément indisponible. Merci de réessayer dans quelques instants.").send()
         return
 
     # Les sources ne sont affichées que si MediBot a réellement répondu (pas après un refus)

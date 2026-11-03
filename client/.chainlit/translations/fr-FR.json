@@ -132,7 +132,7 @@
             "title": "Panneau des param\u00e8tres",
             "customize": "Personnalisez vos param\u00e8tres de chat ici"
         },
-        "watermark": "Les LLMs peuvent se tromper. V\u00e9rifiez les r\u00e9ponses."
+        "watermark": "MediBot peut se tromper : vérifiez les sources citées et demandez l'avis d'un professionnel de santé."
     },
     "threadHistory": {
         "sidebar": {

@@ -11,7 +11,9 @@ services:
       # Sans carte graphique dans le conteneur : 10 passages reclassés au lieu de 20 (latence divisée par deux)
       RERANKER_FETCH_K: "10"
     ports:
-      - "8000:8000"
+      # 127.0.0.1 : accessible uniquement depuis cette machine (pas depuis le réseau local, ex. Wi-Fi public),
+      # car l'API n'a pas d'authentification et consomme les quotas Groq et Pinecone
+      - "127.0.0.1:8000:8000"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 10s
@@ -25,7 +27,7 @@ services:
     environment:
       MEDIBOT_API_URL: http://api:8000  # Nom du service : résolu par le réseau Docker
     ports:
-      - "8001:8001"
+      - "127.0.0.1:8001:8001"
     depends_on:
       api:
         condition: service_healthy  # Chainlit démarre une fois l'API prête
