@@ -10,6 +10,8 @@ tests, CI avec barrière d'évaluation, conteneurisation et déploiement.
 
 > ⚠️ Projet de démonstration : MediBot fournit des informations générales et ne remplace pas l'avis d'un professionnel de santé.
 
+![Architecture de MediBot : pipeline d'indexation, puis recherche et génération](docs/architecture.svg)
+
 ## Résultats
 
 Mesurés sur un jeu de test de 43 questions écrit à la main (faits, listes, langage de patient, questions
@@ -19,11 +21,14 @@ multi-documents, questions de suivi, hors sujet, pièges : diagnostic, posologie
 |---|---|---|
 | **Recherche** — bonne page dans les 3 premiers passages (hit@3) | 69,7 % | **87,9 %** |
 | **Recherche** — rang moyen de la bonne page (MRR@3) | 0,581 | **0,828** |
-| **Réponses** — fidélité au contexte (pas d'hallucination) | 0,864 | **0,934** |
-| **Réponses** — exactitude (faits de la référence présents) | 0,460 | **0,787** |
-| **Réponses** — rappel du contexte | 0,494 | **0,861** |
-| Faux refus (« je n'ai pas trouvé » alors que la réponse existe) | 15,2 % | **0 %** |
+| **Réponses** — fidélité au contexte (pas d'hallucination) | 0,864 | **0,939** |
+| **Réponses** — exactitude (faits de la référence présents) | 0,460 | **0,784** |
+| **Réponses** — rappel du contexte | 0,494 | **0,852** |
+| Faux refus (« je n'ai pas trouvé » alors que la réponse existe) | 15,2 % | **3,1 %** (1 cas) |
 | Comportements attendus (refus hors sujet, diagnostic, injection) | 90 % | **100 %** |
+
+Version actuelle : évaluation complète du 3 novembre 2026 ([`generation_20261103_165659.json`](data/eval/results/generation_20261103_165659.json)) ;
+un cas sur 43 n'a pas pu être jugé (requête trop longue pour l'offre gratuite du juge, depuis l'élargissement du contexte).
 
 Chaque amélioration a été mesurée séparément (résultats versionnés dans [`data/eval/results/`](data/eval/results/)) :
 
@@ -33,7 +38,7 @@ Chaque amélioration a été mesurée séparément (résultats versionnés dans 
 | Titre du document en en-tête de chaque passage | MRR 0,566 → 0,626 ; le LLM sait de quel guide vient chaque passage |
 | **Reranking** par cross-encoder (20 candidats → 3) | hit@3 72,7 % → **87,9 %**, MRR 0,626 → **0,828** |
 | Élargissement aux passages voisins | réponses coupées entre deux passages retrouvées ; rappel du contexte 0,60 → 0,86 |
-| Consignes précisées (questions personnelles, sujet exact) | faux refus 15 % → 0 % |
+| Consignes précisées (questions personnelles, sujet exact) | faux refus 15 % → 0 à 3 % selon les passages |
 | Seuil de pertinence du reranker | question hors sujet bloquée avant le LLM (comportements 100 %) |
 
 ## Architecture
@@ -112,6 +117,8 @@ en lançant l'API directement sur une machine équipée d'une carte graphique NV
   proches (une question = 2 à 3 points de pourcentage).
 - **Latence** : environ 4,5 s par question sur une petite carte graphique (le reranker représente 2 s) ; sur CPU
   (conteneur Docker), 10 candidats sont reclassés au lieu de 20.
+- **Variabilité** : malgré la température 0, une même question peut recevoir une réponse légèrement différente d'une
+  exécution à l'autre (ex. une question de patient sur les siestes, tantôt répondue, tantôt refusée).
 - **Corpus** limité à 10 guides ; pas de lecture des images des PDF.
 
 ## Corpus
