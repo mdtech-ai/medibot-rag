@@ -8,6 +8,8 @@ Le projet couvre toute la chaîne d'un système RAG en production : indexation, 
 vectorielle + reranking, génération en streaming, **évaluation mesurée** à chaque amélioration, observabilité,
 tests, CI avec barrière d'évaluation et conteneurisation.
 
+![Démonstration : question, réponse en streaming avec sources, question de suivi, refus hors sujet](docs/demo.gif)
+
 **Chiffres clés** : exactitude des réponses de 46 % à 78 %, faux refus de 15 % à 3 %, 100 % des garde-fous respectés,
 chaque amélioration mesurée sur un jeu de test de 43 questions.
 
