@@ -126,7 +126,3 @@ en lançant l'API directement sur une machine équipée d'une carte graphique NV
 10 documents publics (HAS 2014–2025, INCa 2018–2025) : diabète de type 2, hypertension artérielle, BPCO,
 insuffisance cardiaque, maladie rénale chronique, chimiothérapie, fatigue et cancer, mélanomes.
 Liste et liens dans [`data/sources.csv`](data/sources.csv) ; les PDF ne sont pas redistribués dans ce dépôt.
-
-## Auteur
-
-Mamadou DIALLO — projet réalisé avec l'aide d'un assistant IA pour la revue de code et les explications.
