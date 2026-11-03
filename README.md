@@ -11,10 +11,10 @@ tests, CI avec barrière d'évaluation et conteneurisation.
 **Chiffres clés** : exactitude des réponses de 46 % à 78 %, faux refus de 15 % à 3 %, 100 % des garde-fous respectés,
 chaque amélioration mesurée sur un jeu de test de 43 questions.
 
-> ⚠️ Projet de démonstration : MediBot fournit des informations générales et ne remplace pas l'avis d'un professionnel de santé.
+> Projet de démonstration : MediBot fournit des informations générales et ne remplace pas l'avis d'un professionnel de santé.
 
-**Sommaire** : [Architecture](#architecture) · [Résultats](#résultats) · [Démarrage rapide](#démarrage-rapide) ·
-[Qualité et production](#qualité-et-production) · [Limites connues](#limites-connues) · [Corpus](#corpus)
+**Sommaire** : [Architecture](#architecture) ·   [Résultats](#résultats) ·   [Démarrage rapide](#démarrage-rapide) ·
+[Qualité et production](#qualité-et-production) ·   [Limites connues](#limites-connues) ·   [Corpus](#corpus)
 
 ## Architecture
 
@@ -51,7 +51,7 @@ multi-documents, questions de suivi, hors sujet, pièges : diagnostic, posologie
 | Faux refus (« je n'ai pas trouvé » alors que la réponse existe) | 15,2 % | **3,1 %** (1 cas) |
 | Comportements attendus (refus hors sujet, diagnostic, injection) | 90 % | **100 %** |
 
-Version actuelle : évaluation complète du 3 novembre 2026 ([`generation_20261103_165659.json`](data/eval/results/generation_20261103_165659.json)) ;
+Version actuelle : évaluation complète à la date du 3 novembre 2026 ([`generation_20261103_165659.json`](data/eval/results/generation_20261103_165659.json)) ;
 un cas sur 43 n'a pas pu être jugé (requête trop longue pour l'offre gratuite du juge, depuis l'élargissement du contexte).
 
 Chaque amélioration a été mesurée séparément (résultats versionnés dans [`data/eval/results/`](data/eval/results/)) :
